@@ -128,7 +128,7 @@ const BottomNavigator: FunctionComponent = () => {
                 styles.box,
                 animatedStyle,
                 {
-                  backgroundColor: isFocused ? '#246BFD' : 'white',
+                  backgroundColor: isFocused ? '#1877F2' : 'white',
                 },
               ]}>
               <Icon
@@ -158,7 +158,6 @@ const BottomNavigator: FunctionComponent = () => {
       screenOptions={screenOptions}
       tabBar={(props: BottomTabBarProps) => <Tab {...props} />}>
       <BottomTabs.Screen name={routes.HOME} component={Home} />
-
       <BottomTabs.Screen name={routes.EXPLORE} component={Explore} />
       <BottomTabs.Screen name={routes.BOOKMARK} component={Bookmark} />
       <BottomTabs.Screen name={routes.PROFILE} component={Profile} />
