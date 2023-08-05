@@ -1,0 +1,12 @@
+export enum routes {
+    ONBOARD = 'ONBOARD',
+    SIGN_IN = 'SIGN_IN',
+    CREATE_ACCOUNT = 'CREATE_ACCOUNT',
+
+    BOTTOM_TAB = 'BOTTOM_TAB',
+    HOME = 'HOME',
+    SAVE_JOB = 'SAVE_JOB',
+    PROFILE = 'PROFILE',
+    MESSAGES = 'MESSAGES',
+    APPLICATIONS = 'APPLICATIONS',
+}
