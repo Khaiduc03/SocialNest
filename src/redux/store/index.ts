@@ -32,6 +32,7 @@ export const store = configureStore({
     }).concat(sagaMiddleware),
 });
 
+
 export type RootState = ReturnType<typeof rootReducers>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
