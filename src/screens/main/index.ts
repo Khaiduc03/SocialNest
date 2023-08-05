@@ -1,5 +1,4 @@
 export * from './home';
-export * from './save-job';
-export * from './applications';
-export * from './messages';
+export * from './bookmark';
+export * from './explore';
 export * from './profile';

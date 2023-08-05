@@ -3,7 +3,7 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {Icon} from '@rneui/themed';
+import {Icon, Text} from '@rneui/themed';
 import React, {FunctionComponent, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -15,13 +15,7 @@ import Animated, {
 
 import {routes} from '../../constants';
 import {Device} from '../../utils';
-import {
-  Applications,
-  Home,
-  Messages,
-  Profile,
-  SaveJob,
-} from '../../screens/main';
+import {Bookmark, Explore, Home, Profile} from '../../screens/main';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -29,18 +23,18 @@ const WIDTH = Device.getDeviceWidth();
 
 const screenOptions: BottomTabNavigationOptions = {
   headerShown: false,
+
+  tabBarShowLabel: true,
 };
 
 const choseIcon = (route: routes) => {
   switch (route) {
     case routes.HOME:
       return 'home';
-    case routes.SAVE_JOB:
-      return 'layers';
-    case routes.APPLICATIONS:
-      return 'copy';
-    case routes.MESSAGES:
-      return 'chatbubble-ellipses';
+    case routes.EXPLORE:
+      return 'id-card';
+    case routes.BOOKMARK:
+      return 'bookmarks';
     case routes.PROFILE:
       return 'person';
     default:
@@ -63,7 +57,8 @@ const styles = StyleSheet.create({
     height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: WIDTH / 10,
+    borderRadius: 10,
+    // borderRadius: WIDTH / 10,
   },
 });
 
@@ -73,7 +68,7 @@ const BottomNavigator: FunctionComponent = () => {
   const Tab = ({navigation, descriptors, state}: BottomTabBarProps) => {
     const progressGrowth = useSharedValue(0);
 
-    // use effect will call when change tab
+    //use effect will call when change tab
     useEffect(() => {
       progressGrowth.value = withSpring(-20, {
         damping: 10,
@@ -142,6 +137,15 @@ const BottomNavigator: FunctionComponent = () => {
                 color={isFocused ? 'white' : '#6396FF'}
                 size={24}
               />
+
+              <Text
+                style={{
+                  color: isFocused ? 'white' : '#6396FF',
+                  fontSize: 10,
+                  marginTop: 1,
+                }}>
+                {route.name.toLowerCase()}
+              </Text>
             </AnimatedTouch>
           );
         })}
@@ -154,9 +158,9 @@ const BottomNavigator: FunctionComponent = () => {
       screenOptions={screenOptions}
       tabBar={(props: BottomTabBarProps) => <Tab {...props} />}>
       <BottomTabs.Screen name={routes.HOME} component={Home} />
-      <BottomTabs.Screen name={routes.SAVE_JOB} component={SaveJob} />
-      <BottomTabs.Screen name={routes.APPLICATIONS} component={Applications} />
-      <BottomTabs.Screen name={routes.MESSAGES} component={Messages} />
+
+      <BottomTabs.Screen name={routes.EXPLORE} component={Explore} />
+      <BottomTabs.Screen name={routes.BOOKMARK} component={Bookmark} />
       <BottomTabs.Screen name={routes.PROFILE} component={Profile} />
     </BottomTabs.Navigator>
   );

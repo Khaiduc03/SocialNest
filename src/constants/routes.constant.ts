@@ -5,8 +5,9 @@ export enum routes {
 
     BOTTOM_TAB = 'BOTTOM_TAB',
     HOME = 'HOME',
-    SAVE_JOB = 'SAVE_JOB',
+ 
     PROFILE = 'PROFILE',
-    MESSAGES = 'MESSAGES',
-    APPLICATIONS = 'APPLICATIONS',
+    BOOKMARK = 'BOOKMARK',
+    EXPLORE = 'EXPLORE',
+
 }

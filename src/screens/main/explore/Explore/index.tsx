@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 
 import styles from './styles';
 
-const Applications: FunctionComponent = () => {
+const Explore: FunctionComponent = () => {
     return (
         <View style={styles.container}>
             <Text>Applications</Text>
@@ -12,4 +12,4 @@ const Applications: FunctionComponent = () => {
     );
 };
 
-export default Applications;
+export default Explore;
