@@ -7,10 +7,17 @@ import {
 } from '@react-navigation/stack';
 import { routes } from '../../constants';
 import { authScreen } from '../../screens/auth';
+import { Screen } from '../../types';
+import { onBroardScreens } from '../../screens/auth/onboard';
 
 
 
 const AuthStack = createStackNavigator();
+
+const authScreenapp: Screen[]=[
+    ...authScreen,
+    ...onBroardScreens
+]
 
 const screenOptions: StackNavigationOptions = {
     headerShown: false,
@@ -21,9 +28,9 @@ const AuthNavigator = () => {
     return (
         <AuthStack.Navigator
             screenOptions={screenOptions}
-            initialRouteName={routes.SIGN_IN}
+            initialRouteName={routes.ONBOARD1}
         >
-            {authScreen.map((screen) => {
+            {authScreenapp.map((screen) => {
                 return (
                     <AuthStack.Screen
                         key={screen.name}

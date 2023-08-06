@@ -1,4 +1,4 @@
-import { createTheme } from '@rneui/themed';
+import {createTheme} from '@rneui/themed';
 
 export const theme = createTheme({
   lightColors: {
@@ -9,6 +9,8 @@ export const theme = createTheme({
     grey4: '#4E4B66',
     divider: '#e3f3ff',
     grey1: '#F5F5F5',
+    black:'#000',
+    grey0:'#FFFFFF'
   },
   darkColors: {
     primary: '#1877F2',
@@ -18,6 +20,8 @@ export const theme = createTheme({
     grey4: '#f1f1f4',
     divider: '#e3f3ff',
     grey1: '#1f222a',
+    black:'#E4E6EB',
+    grey0:'#FFFFFF'
   },
   mode: 'light',
 });

@@ -1,19 +1,24 @@
-
 import {FunctionComponent} from 'react';
-import {View} from 'react-native';
-import styles from './styles';
 
-import { Button, ThemeProvider } from '@rneui/themed';
-
-
-
-
+import useStyles from './styles';
+import {Keyboard, TouchableWithoutFeedback, View} from 'react-native';
+import Header from '../../../components/customs/Headers';
+import { BackIcon } from '../../../assets/icons';
+import { NavigationService } from '../../../navigation';
+import { routes } from '../../../constants';
 
 const SignIn: FunctionComponent = () => {
+  const styles = useStyles();
+
   return (
-    <ThemeProvider>
-    <Button title="Hey!" />
-  </ThemeProvider>
+    <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
+        <View style={styles.wrapper}>
+      
+
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 
