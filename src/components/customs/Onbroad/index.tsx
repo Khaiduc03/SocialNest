@@ -8,14 +8,13 @@ import {Device} from '../../../utils';
 
 import {CaseIcon} from '../../../assets/icons';
 
-
 const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
   const styles = useStyles();
   const HEGHIT = Device.getDeviceHeight();
   const WIGHT = Device.getDeviceWidth() / 1;
   const backPress = () => {
     if (props.onPressBackButton) {
-     props.onPressBackButton();
+      props.onPressBackButton();
     }
   };
 
@@ -37,14 +36,21 @@ const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
       </View>
       <View style={styles.bottom}>
         <CaseIcon colors={props.iconColor} />
+        <View style={styles.viewButton}>
+          {props.onPressBackButton && (
+            <TouchableOpacity onPress={props.onPressNextButton}>
+              <Text style={styles.backButtonText}>back</Text>
+            </TouchableOpacity>
+          )}
 
-      {props.onPressNextButton &&(
-             <TouchableOpacity onPress={props.onPressNextButton} style={styles.button}>
-             <Text style={styles.buttonText}>{props.textButton}</Text>
-          </TouchableOpacity>
-      )}
-
-    
+          {props.onPressNextButton && (
+            <TouchableOpacity
+              onPress={props.onPressNextButton}
+              style={styles.button}>
+              <Text style={styles.buttonText}>{props.textButton}</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );

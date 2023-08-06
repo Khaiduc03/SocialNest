@@ -36,6 +36,7 @@ const useStyles = makeStyles(({colors}) => ({
     // backgroundColor: 'black',
     paddingHorizontal: normalize(24),
   },
+
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -52,6 +53,22 @@ const useStyles = makeStyles(({colors}) => ({
     letterSpacing: normalize(0.12),
     fontStyle: 'normal',
     color: colors.grey0,
+  },
+  backButtonText: {
+    fontSize: normalize(16),
+    fontWeight: '600',
+    lineHeight: normalize(24),
+    letterSpacing: normalize(0.12),
+    fontStyle: 'normal',
+    color: colors.grey5,
+    paddingRight:normalize(10)
+  },
+  viewButton: {
+    flexDirection: 'row',
+  
+    alignItems: 'center',
+  
+
   },
 }));
 
