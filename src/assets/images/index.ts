@@ -1,8 +1,4 @@
-import OnboardImage1 from './OnboardImage1'
-import OnboardImage2 from './OnboardImage2'
-import OnboardImage3 from './OnboardImage3'
-export{
-  OnboardImage1,
-  OnboardImage2,
-  OnboardImage3
-}
+export { default as OnboardImage1 } from './OnboardImage1'
+export  { default as OnboardImage2 } from './OnboardImage2'
+export  { default as OnboardImage3 } from './OnboardImage3'
+export  { default as LobbyImage } from './LobbyImage'

@@ -39,5 +39,5 @@ const SvgComponent = (props: SvgProps) => (
     </Defs>
   </Svg>
 )
-const Memo = memo(SvgComponent)
-export default Memo
+const OnboardImage3 = memo(SvgComponent)
+export default OnboardImage3

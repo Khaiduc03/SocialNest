@@ -1,6 +1,7 @@
 import {routes} from '../../constants';
 import {Screen} from '../../types';
 import CreateAccount from './create-account';
+import LobbyScreen from './lobby';
 import SignIn from './sign-in';
 
 export const authScreen: Screen[] = [
@@ -11,5 +12,9 @@ export const authScreen: Screen[] = [
   {
     name: routes.CREATE_ACCOUNT,
     component: CreateAccount,
+  },
+  {
+    name: routes.LOBBY,
+    component: LobbyScreen,
   },
 ];

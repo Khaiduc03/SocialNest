@@ -4,6 +4,7 @@ export enum routes {
     ONBOARD3 = 'ONBOARD3',
     SIGN_IN = 'SIGN_IN',
     CREATE_ACCOUNT = 'CREATE_ACCOUNT',
+    LOBBY = 'LOBBY',
 
     BOTTOM_TAB = 'BOTTOM_TAB',
     HOME = 'HOME',

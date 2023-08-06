@@ -2,9 +2,10 @@ import {View, Text, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import React from 'react';
 import useStyles from './styles';
 import Onbroad from '../../../../components/customs/Onbroad';
-import { OnboardImage3} from '../../../../assets/images';
+
 import {NavigationService} from '../../../../navigation';
 import {routes} from '../../../../constants';
+import { OnboardImage3 } from '../../../../assets';
 
 const Onboard1: React.FunctionComponent = () => {
   const styles = useStyles();
