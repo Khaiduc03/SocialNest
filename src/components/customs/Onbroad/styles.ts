@@ -9,9 +9,14 @@ const useStyles = makeStyles(({colors}) => ({
     flex: 1,
     backgroundColor: colors.background,
   },
+  subContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
   textView: {
-    margin: normalize(24),
-    marginBottom: normalize(8),
+    flex:1,
+    padding: normalize(24),
+    paddingBottom: normalize(8),
   },
   title: {
     color: colors.black,
@@ -28,18 +33,17 @@ const useStyles = makeStyles(({colors}) => ({
     letterSpacing: normalize(0.12),
   },
   bottom: {
-    bottom: 0,
+    
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    // backgroundColor: 'black',
+
     paddingHorizontal: normalize(24),
+    
   },
 
   button: {
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: normalize(24),
     paddingVertical: normalize(13),
     gap: 18,
@@ -61,14 +65,11 @@ const useStyles = makeStyles(({colors}) => ({
     letterSpacing: normalize(0.12),
     fontStyle: 'normal',
     color: colors.grey5,
-    paddingRight:normalize(10)
+    paddingRight: normalize(10),
   },
   viewButton: {
     flexDirection: 'row',
-  
     alignItems: 'center',
-  
-
   },
 }));
 

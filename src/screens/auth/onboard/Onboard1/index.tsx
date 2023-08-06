@@ -21,10 +21,6 @@ const Onboard1: React.FunctionComponent = () => {
             subTitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             iconColor={iconColor}
             onPressNextButton={() => {
-              if (NavigationService.canGoBack()) {
-                NavigationService.goBack();
-                return;
-              }
               NavigationService.navigate(routes.ONBOARD2);
             }}
             textButton="Next"

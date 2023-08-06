@@ -30,26 +30,28 @@ const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
       <Svg width={WIGHT} height={HEGHIT / 1.7}>
         {React.cloneElement(props.image)}
       </Svg>
-      <View style={styles.textView}>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.subTitle}>{props.subTitle}</Text>
-      </View>
-      <View style={styles.bottom}>
-        <CaseIcon colors={props.iconColor} />
-        <View style={styles.viewButton}>
-          {props.onPressBackButton && (
-            <TouchableOpacity onPress={props.onPressNextButton}>
-              <Text style={styles.backButtonText}>back</Text>
-            </TouchableOpacity>
-          )}
+      <View style={styles.subContainer}>
+        <View style={styles.textView}>
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.subTitle}>{props.subTitle}</Text>
+        </View>
+        <View style={styles.bottom}>
+          <CaseIcon colors={props.iconColor} />
+          <View style={styles.viewButton}>
+            {props.onPressBackButton && (
+              <TouchableOpacity onPress={props.onPressBackButton}>
+                <Text style={styles.backButtonText}>back</Text>
+              </TouchableOpacity>
+            )}
 
-          {props.onPressNextButton && (
-            <TouchableOpacity
-              onPress={props.onPressNextButton}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{props.textButton}</Text>
-            </TouchableOpacity>
-          )}
+            {props.onPressNextButton && (
+              <TouchableOpacity
+                onPress={props.onPressNextButton}
+                style={styles.button}>
+                <Text style={styles.buttonText}>{props.textButton}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     </View>
