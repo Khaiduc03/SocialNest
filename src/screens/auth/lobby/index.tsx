@@ -5,6 +5,9 @@ import LobbyImage1 from '../../../assets/images/LobbyImage';
 import {Svg} from 'react-native-svg';
 import {Device} from '../../../utils';
 import {Icon} from '@rneui/themed';
+import {GoogleIcon} from '../../../assets/icons';
+import {NavigationService} from '../../../navigation';
+import {routes} from '../../../constants';
 
 const LobbyScreen: React.FunctionComponent = () => {
   const styles = usestyles();
@@ -33,7 +36,26 @@ const LobbyScreen: React.FunctionComponent = () => {
         </Text>
         <View style={styles.bottom}>
           <TouchableOpacity style={styles.button}>
-            <Text >Sign in</Text>
+            <GoogleIcon />
+            <Text style={styles.buttonText}> Continue with Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationService.navigate(routes.CREATE_ACCOUNT);
+            }}
+            style={[styles.button, styles.backgroundColors]}>
+            <Text style={[styles.buttonText, styles.colorWhite]}>
+              Get Started
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationService.navigate(routes.SIGN_IN);
+            }}
+            style={[styles.button, styles.backgroundColorsSecondary]}>
+            <Text style={[styles.buttonText, styles.colors]}>
+              I Already Have an Account
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
