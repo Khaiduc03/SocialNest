@@ -10,8 +10,7 @@ import {
 
 import useStyles from './styles';
 import Header from '../../../components/customs/Headers';
-import { AuthHeader } from '../../../components';
-
+import {AuthHeader} from '../../../components';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
@@ -22,8 +21,12 @@ const SignIn: FunctionComponent = () => {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
           <View style={styles.body}>
             <Header leftIcon={true} />
-            <AuthHeader/>
+            <AuthHeader
+              title="Login 🔐"
+              subTitle="Please enter your username/email and password to sign in."
+            />
             
+
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

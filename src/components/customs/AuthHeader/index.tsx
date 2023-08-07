@@ -8,11 +8,10 @@ const AuthHeader: React.FunctionComponent<AuthProps> = props => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Create an Account 🔐</Text>
-        <Text style={styles.subTitle}>
-          Enter your username, email & password. If you forget it, then you have
-          to do forgot password.
-        </Text>
+        {props.title && <Text style={styles.title}>{props.title}</Text>}
+        {props.subTitle && (
+          <Text style={styles.subTitle}>{props.subTitle}</Text>
+        )}
       </View>
     </View>
   );
