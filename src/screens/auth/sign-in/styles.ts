@@ -1,14 +1,17 @@
-import {makeStyles} from '@rneui/themed';
+import {makeStyles, normalize} from '@rneui/themed';
+import {StyleSheet} from 'react-native';
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   wrapper: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.background,
   },
-
-
+  body:{
+    ...StyleSheet.absoluteFillObject,
+    padding:normalize(24),
+  }
 }));
 export default useStyles;

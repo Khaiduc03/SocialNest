@@ -1,26 +1,28 @@
 import {FunctionComponent} from 'react';
 
-import useStyles from './styles';
+import {Text} from '@rneui/base';
 import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+import useStyles from './styles';
 import Header from '../../../components/customs/Headers';
-import {BackIcon} from '../../../assets/icons';
-import {NavigationService} from '../../../navigation';
-import {routes} from '../../../constants';
+import { AuthHeader } from '../../../components';
+
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
 
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView style={styles.wrapper}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
-          <View style={styles.wrapper}>
-
+          <View style={styles.body}>
+            <Header leftIcon={true} />
+            <AuthHeader/>
             
           </View>
         </TouchableWithoutFeedback>

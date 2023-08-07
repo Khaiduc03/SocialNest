@@ -9,6 +9,9 @@ export class Device {
   static getDeviceHeight() {
     return Dimensions.get('window').height;
   }
+  static getFontScale() {
+    return Dimensions.get('window').fontScale;
+  }
 
   static isIos() {
     return Platform.OS === 'ios';

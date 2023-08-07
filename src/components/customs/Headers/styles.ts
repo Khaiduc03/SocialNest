@@ -1,12 +1,14 @@
-import { normalize, makeStyles } from '@rneui/themed';
+import {normalize, makeStyles} from '@rneui/themed';
+import {Device} from '../../../utils';
 
-const useStyles = makeStyles(({ colors }) => ({
+const WIGHT = Device.getDeviceWidth();
+Device.getDeviceWidth();
+const useStyles = makeStyles(({colors}) => ({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.background,
     marginVertical: normalize(12),
-    paddingHorizontal: normalize(7),
   },
   icon: {
     justifyContent: 'center',
@@ -19,6 +21,18 @@ const useStyles = makeStyles(({ colors }) => ({
     paddingHorizontal: normalize(20),
     fontSize: 18,
     fontWeight: '700',
+  },
+  iconRight: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: normalize(30),
+    height: normalize(30),
+  },
+  colorPrimary: {
+    color: colors.primary,
+  },
+  colorBlack: {
+    color: colors.black,
   },
 }));
 
