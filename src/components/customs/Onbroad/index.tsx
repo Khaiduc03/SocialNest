@@ -18,6 +18,12 @@ const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
     }
   };
 
+  const nextPress = () => {
+    if (props.onPressNextButton) {
+      props.onPressNextButton();
+    }
+  };
+
   // const rightPress = () => {
   //   if (props.leftIcon) {
   //     props.onPressRightIcon && props.onPressRightIcon();
@@ -39,14 +45,14 @@ const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
           <CaseIcon colors={props.iconColor} />
           <View style={styles.viewButton}>
             {props.onPressBackButton && (
-              <TouchableOpacity onPress={props.onPressBackButton}>
+              <TouchableOpacity onPress={backPress}>
                 <Text style={styles.backButtonText}>back</Text>
               </TouchableOpacity>
             )}
 
             {props.onPressNextButton && (
               <TouchableOpacity
-                onPress={props.onPressNextButton}
+                onPress={nextPress}
                 style={styles.button}>
                 <Text style={styles.buttonText}>{props.textButton}</Text>
               </TouchableOpacity>

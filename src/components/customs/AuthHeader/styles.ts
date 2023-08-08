@@ -5,39 +5,32 @@ const WIDTH = Device.getDeviceWidth();
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
-    flex: 1,
     backgroundColor: colors.background,
   },
 
   header: {
-    flex: 1,
+    backgroundColor: 'blue',
   },
   form: {
-    flex: 1,
     paddingVertical: normalize(24),
   },
   title: {
-    fontSize: normalize(32),
-    fontWeight: '700',
+    fontSize: normalize(30),
+    fontWeight: '600',
     fontFamily: 'Urbanist-Bold',
     color: colors.black,
   },
   subTitle: {
-    fontSize: normalize(17),
+    fontSize: normalize(16),
     fontWeight: '400',
     fontFamily: 'Urbanist-Regular',
     color: colors.black,
+    paddingVertical: normalize(14),
   },
-  titleInput: {
-    fontSize: normalize(16),
-    fontWeight: '700',
-    fontFamily: 'Urbanist-Bold',
-    color: colors.black,
-    letterSpacing: normalize(0.2),
-  },
+
   textInput: {
     fontSize: normalize(20),
-    fontWeight: '700',
+    fontWeight: '600',
     fontFamily: 'Urbanist-Regular',
     color: colors.black,
     letterSpacing: normalize(0.2),
@@ -46,9 +39,8 @@ const useStyles = makeStyles(({colors}) => ({
     backgroundColor: colors.white,
   },
   avatar: {
-      alignItems:'center',
-      justifyContent:'center',
-
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   avatarStyle: {
     width: normalize(100),
@@ -58,7 +50,7 @@ const useStyles = makeStyles(({colors}) => ({
   avatarColor: {
     backgroundColor: colors.grey5,
     borderRadius: normalize(50),
-  }
+  },
 }));
 
 export default useStyles;

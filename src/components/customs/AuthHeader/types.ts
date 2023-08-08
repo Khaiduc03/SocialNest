@@ -7,5 +7,6 @@ export type AuthProps = {
   titleIcon?:boolean;
   subTitle?:string;
   avatar?:ReactElement;
-  
+
+
 };
