@@ -18,12 +18,34 @@ import {
   SmallButton,
 } from '../../../components';
 import {CheckBox, Icon} from '@rneui/themed';
-import { GoogleIcon } from '../../../assets/icons';
+import {GoogleIcon} from '../../../assets/icons';
+import {useAppDispatch} from '../../../hooks';
+import {AuthActions} from '../../../redux/reducer';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
-  const [checked, setChecked] = React.useState(true);
+
   const toggleCheckbox = () => setChecked(!checked);
+
+  const [credentials, setCredentials] = React.useState<{
+    username: string;
+    password: string;
+  }>({
+    username: 'p3nhox100',
+    password: '123456',
+  });
+
+  const [checked, setChecked] = React.useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const handleSignIn = async () => {
+    dispatch(
+      AuthActions.handleLogin({
+        username: credentials.username,
+        password: credentials.password,
+        device_token: '1234567890',
+      }),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -38,9 +60,22 @@ const SignIn: FunctionComponent = () => {
 
             <View style={styles.formContainer}>
               <Text style={styles.titleInput}>Username</Text>
-              <InputCustom placeholder="Enter your username" />
+              <InputCustom
+                placeholder="Enter your username"
+                value={credentials.username}
+                onChangeText={text =>
+                  setCredentials({...credentials, username: text})
+                }
+              />
               <Text style={styles.titleInput}>Password</Text>
-              <InputCustom placeholder="Enter your password" secure={true} />
+              <InputCustom
+                placeholder="Enter your password"
+                secure={true}
+                value={credentials.password}
+                onChangeText={text =>
+                  setCredentials({...credentials, password: text})
+                }
+              />
               <View style={styles.checkbox}>
                 <CheckBox
                   checked={checked}
@@ -56,17 +91,18 @@ const SignIn: FunctionComponent = () => {
                 <Text style={styles.textNor}>or continue with</Text>
               </View>
               <View style={styles.optionView}>
+                <SmallButton svgIcon={<GoogleIcon />} nameIcon="" />
                 <SmallButton
-                 svgIcon={<GoogleIcon />}
-                 nameIcon=''
+                  nameIcon="logo-facebook"
+                  typeIcon="ionicon"
+                  isIonicons
                 />
-                <SmallButton nameIcon="logo-facebook" typeIcon="ionicon" isIonicons />
               </View>
               <View style={styles.bottom}>
                 <BigButton
                   textButton="Sign In"
                   onPressButton={() => {
-                    console.log('Sign In');
+                    handleSignIn();
                   }}
                 />
               </View>

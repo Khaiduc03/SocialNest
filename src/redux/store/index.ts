@@ -3,9 +3,10 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import {PersistConfig, persistStore} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import {Redux} from '../types/redux.type';
-import {AuthReducer} from '../reducer';
+import {AuthReducer, LoadingReducer} from '../reducer';
 import persistReducer from 'redux-persist/es/persistReducer';
 import createSagaMiddleware from 'redux-saga';
+import RootSaga from '../sagas';
 
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',
@@ -15,10 +16,12 @@ const persistConfig: PersistConfig<RootState> = {
   debug: true, // enable logs - default is false
   stateReconciler: autoMergeLevel2,
   whitelist: [Redux.auth],
+  blacklist: [Redux.loading],
 };
 
 const rootReducers = combineReducers({
   auth: AuthReducer,
+  loading: LoadingReducer,
 });
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducers);
 
@@ -31,8 +34,8 @@ export const store = configureStore({
       serializableCheck: false, // to ignore redux-persist
     }).concat(sagaMiddleware),
 });
-
-
+sagaMiddleware.run(RootSaga);
+console.log(store.getState());
 export type RootState = ReturnType<typeof rootReducers>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);

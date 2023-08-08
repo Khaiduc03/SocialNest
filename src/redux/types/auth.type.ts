@@ -1,4 +1,5 @@
-import {  Avatar, Role, Timestamp, uuid } from '../../types';
+import { Avatar, Timestamp, uuid } from '../../types';
+
 
 export type AuthState = {
   enableSignIn: boolean;
@@ -9,13 +10,16 @@ export type AuthState = {
   isGoogle: boolean;
 };
 
-
 export type LoginPayload = {
-  email: string;
+  username: string;
   password: string;
-  device_token:string
-}
+  device_token: string;
+};
 
+export type RefreshToken = {
+  refreshToken: string;
+  accessToken: string;
+};
 
 export type User = uuid &
   Timestamp & {
@@ -27,9 +31,11 @@ export type User = uuid &
     password: string;
     gender: number;
     address: string;
-    role: Role;
+    role: number[];
     summary: string;
     status: boolean;
     device_token: string;
     avatar: Avatar;
   };
+
+export type CVType = Avatar & {};
