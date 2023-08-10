@@ -4,7 +4,7 @@
 // dotenv.config();
 
 // //URL
-// export const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+ export const BASE_URL = 'http://10.0.1.25:3000'
 
 export enum Endpoints {
   //AUTH

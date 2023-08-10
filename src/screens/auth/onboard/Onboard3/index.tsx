@@ -5,11 +5,19 @@ import Onbroad from '../../../../components/customs/Onbroad';
 
 import {NavigationService} from '../../../../navigation';
 import {routes} from '../../../../constants';
-import { OnboardImage3 } from '../../../../assets';
+import {OnboardImage3} from '../../../../assets';
+import {useAppDispatch} from '../../../../hooks';
+import {AppActions} from '../../../../redux/reducer';
 
 const Onboard1: React.FunctionComponent = () => {
   const styles = useStyles();
   const iconColor = ['', '', styles.iconColor.color];
+  const dispatch = useAppDispatch();
+
+  const handleReady =  () => {
+     dispatch(AppActions.handleReady(true));
+     NavigationService.navigate(routes.LOBBY);
+  };
 
   return (
     <View style={styles.container}>
@@ -21,7 +29,7 @@ const Onboard1: React.FunctionComponent = () => {
             subTitle=""
             iconColor={iconColor}
             onPressNextButton={() => {
-              NavigationService.navigate(routes.SIGN_IN);
+              handleReady();
             }}
             textButton="Get Started"
             onPressBackButton={() => {

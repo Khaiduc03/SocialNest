@@ -1,17 +1,18 @@
 import axios from 'axios';
-import {  Endpoints } from '../../environment';
-import { store } from '../store';
-import { AuthActions } from '../reducer';
+import {BASE_URL, Endpoints} from '../../environment';
+import {store} from '../store';
+import {AuthActions} from '../reducer';
+import {ToastAndroid} from 'react-native';
 
 const apiService = axios.create({
-  baseURL: 'http://192.168.0.109:3000',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 apiService.interceptors.request.use(
-  (config) => {
+  config => {
     const accessToken = store.getState().auth.accessToken;
     if (accessToken && config.url !== Endpoints.REFRESH_TOKEN_ENDPOINT) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -20,20 +21,19 @@ apiService.interceptors.request.use(
     config.withCredentials = true;
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
-  }
+  },
 );
 
-
 apiService.interceptors.response.use(
-  (response) => {
+  response => {
     console.log(`Call Api Successful  ${response.request.responseURL} `);
     return response;
   },
-  async (error) => {
-    console.log(`Call Api Failed  ${error.request.responseURL} `);
-
+  async error => {
+    //console.log(`Call Api Failed  ${error.request.responseURL} `);
+    ToastAndroid.show('Call Api Failed', ToastAndroid.SHORT);
     const originalRequest = error.config;
     const refreshToken = store.getState().auth.refreshToken;
 
@@ -57,7 +57,7 @@ apiService.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiService;

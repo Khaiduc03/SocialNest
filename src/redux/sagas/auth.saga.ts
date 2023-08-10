@@ -5,6 +5,8 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {AuthService} from '../services';
 import {AuthActions, LoadingActions} from '../reducer';
 import {ToastAndroid} from 'react-native';
+import { Dialog } from '@rneui/themed';
+import { DialogTitle } from '@rneui/base/dist/Dialog/Dialog.Title';
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
@@ -23,7 +25,8 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
      
       ToastAndroid.show('Login success', ToastAndroid.SHORT);
     } else {
-      ToastAndroid.show(data.message, ToastAndroid.SHORT);
+      // ToastAndroid.show(data.message, ToastAndroid.SHORT);
+      DialogTitle(data.message);
       yield call(cleanUser);
     }
   } catch (error: any) {

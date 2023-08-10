@@ -1,5 +1,6 @@
 import {FunctionComponent} from 'react';
 import {routes} from '../constants';
+import {Image} from 'react-native';
 
 export type uuid = {
   _id: string;
@@ -47,3 +48,10 @@ export enum Role {
   USER = 'USER',
   VIP = 'VIP',
 }
+
+export type Onboard = {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: any;
+};

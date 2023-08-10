@@ -24,13 +24,6 @@ const Onbroad: React.FunctionComponent<OnbroadProps> = props => {
     }
   };
 
-  // const rightPress = () => {
-  //   if (props.leftIcon) {
-  //     props.onPressRightIcon && props.onPressRightIcon();
-  //   }
-  // };
-  // Truyền màu từ prop colors (nếu có) và giữ nguyên màu mặc định cho các phần tử còn lại
-
   return (
     <View style={[styles.container, props.styles]}>
       <Svg width={WIGHT} height={HEGHIT / 1.7}>

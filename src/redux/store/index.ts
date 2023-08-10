@@ -3,7 +3,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import {PersistConfig, persistStore} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import {Redux} from '../types/redux.type';
-import {AuthReducer, LoadingReducer} from '../reducer';
+import {AppReducer, AuthReducer, LoadingReducer} from '../reducer';
 import persistReducer from 'redux-persist/es/persistReducer';
 import createSagaMiddleware from 'redux-saga';
 import RootSaga from '../sagas';
@@ -15,27 +15,29 @@ const persistConfig: PersistConfig<RootState> = {
   version: 1, // version - defaults to 1
   debug: true, // enable logs - default is false
   stateReconciler: autoMergeLevel2,
-  whitelist: [Redux.auth],
+  whitelist: [Redux.auth, Redux.app],
   blacklist: [Redux.loading],
 };
 
 const rootReducers = combineReducers({
   auth: AuthReducer,
   loading: LoadingReducer,
+  app: AppReducer,
 });
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducers);
 
+const createDebugger = require('redux-flipper').default;
 const sagaMiddleware = createSagaMiddleware();
-
+const middleware = [sagaMiddleware, createDebugger()];
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false, // to ignore redux-persist
-    }).concat(sagaMiddleware),
+    }).concat(middleware),
 });
 sagaMiddleware.run(RootSaga);
-console.log(store.getState());
+
 export type RootState = ReturnType<typeof rootReducers>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);

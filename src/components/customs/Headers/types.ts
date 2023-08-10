@@ -10,4 +10,5 @@ export type HeaderProps = {
   onPressRightIcon?: () => void;
   style?: ViewProps['style'];
   titleStyle?: TextStyle;
+  logo?: boolean;
 };

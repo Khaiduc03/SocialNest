@@ -21,6 +21,8 @@ import {CheckBox, Icon} from '@rneui/themed';
 import {GoogleIcon} from '../../../assets/icons';
 import {useAppDispatch} from '../../../hooks';
 import {AuthActions} from '../../../redux/reducer';
+import { NavigationService } from '../../../navigation';
+import { routes } from '../../../constants';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
@@ -52,7 +54,12 @@ const SignIn: FunctionComponent = () => {
       <KeyboardAvoidingView style={styles.wrapper}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.body}>
-            <Header leftIcon={true} />
+            <Header
+              leftIcon={true}
+              onPressLeftIcon={() => {
+                NavigationService.navigate(routes.LOBBY);
+              }}
+            />
             <AuthHeader
               title="Login 🔐"
               subTitle="Please enter your username/email and password to sign in."

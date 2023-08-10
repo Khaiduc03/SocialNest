@@ -16,6 +16,7 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
     style,
     title,
     titleStyle,
+    logo,
   } = props;
   const styles = useStyles();
   const leftPress = () => {
@@ -42,6 +43,18 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
           />
         </TouchableOpacity>
       )}
+
+      {logo && (
+        <TouchableOpacity onPress={leftPress}>
+          <Icon
+            name={'arrow-back-outline'}
+            type="ionicon"
+            size={24}
+            color={styles.colorBlack.color}
+          />
+        </TouchableOpacity>
+      )}
+
       {rightIcon && (
         <TouchableOpacity onPress={rightPress} style={styles.icon}>
           {rightIcon}

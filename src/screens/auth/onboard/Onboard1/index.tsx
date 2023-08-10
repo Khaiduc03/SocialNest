@@ -5,9 +5,9 @@ import Onbroad from '../../../../components/customs/Onbroad';
 
 import {NavigationService} from '../../../../navigation';
 import {routes} from '../../../../constants';
-import { OnboardImage1 } from '../../../../assets';
-
-
+import {OnboardImage1} from '../../../../assets';
+import {useAppSelector} from '../../../../hooks';
+import {getAppIsReady} from '../../../../redux/selectors/app.selector';
 
 const Onboard1: React.FunctionComponent = () => {
   const styles = useStyles();

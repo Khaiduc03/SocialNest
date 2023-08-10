@@ -1,6 +1,10 @@
 import { Avatar, Timestamp, uuid } from '../../types';
 
 
+export type AppStatus = {
+  isReady: boolean;
+}
+
 export type AuthState = {
   enableSignIn: boolean;
   enableBiometric: boolean;

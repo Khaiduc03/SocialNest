@@ -1,23 +1,29 @@
-import {Text, TouchableOpacity, View} from 'react-native';
+import {PixelRatio, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import usestyles from './styles';
 import LobbyImage1 from '../../../assets/images/LobbyImage';
 import {Svg} from 'react-native-svg';
 import {Device} from '../../../utils';
-import {Icon} from '@rneui/themed';
+import {Icon, Image} from '@rneui/themed';
 import {GoogleIcon} from '../../../assets/icons';
 import {NavigationService} from '../../../navigation';
 import {routes} from '../../../constants';
+import { images } from '../../../assets';
 
 const LobbyScreen: React.FunctionComponent = () => {
   const styles = usestyles();
-  const WIDTH = Device.getDeviceHeight();
-  const HEIGHT = Device.getDeviceWidth();
+  const HEIGHT = Device.getDeviceHeight();
+  const WIDTH = Device.getDeviceWidth();
+  
   return (
     <View style={styles.container}>
-      <Svg width={WIDTH} height={HEIGHT}>
-        <LobbyImage1 />
-      </Svg>
+      <View style={styles.header}>
+        <Image style={styles.headerIMage} source={images.logo}  />
+      </View>
+      {/* <LobbyImage1 /> */}
+      {/* <Svg width={WIDTH} height={HEIGHT / 2}>
+      
+      </Svg> */}
       <View style={styles.body}>
         <View style={styles.viewTitle}>
           <Text style={styles.title}>

@@ -71,8 +71,8 @@ const BottomNavigator: FunctionComponent = () => {
     //use effect will call when change tab
     useEffect(() => {
       progressGrowth.value = withSpring(-20, {
-        damping: 10,
-        stiffness: 200,
+        damping: 200,
+        stiffness: 400,
       });
 
       // before change tab, reset progressGrowth

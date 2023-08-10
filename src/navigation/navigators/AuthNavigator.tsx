@@ -9,9 +9,11 @@ import { routes } from '../../constants';
 import { authScreen } from '../../screens/auth';
 import { Screen } from '../../types';
 import { onBroardScreens } from '../../screens/auth/onboard';
+import { useAppSelector } from '../../hooks';
+import { getAppIsReady } from '../../redux/selectors/app.selector';
 
 
-
+const isReady:boolean = useAppSelector(getAppIsReady);
 const AuthStack = createStackNavigator();
 
 const authScreenapp: Screen[]=[
@@ -28,7 +30,8 @@ const AuthNavigator = () => {
     return (
         <AuthStack.Navigator
             screenOptions={screenOptions}
-            initialRouteName={routes.SIGN_IN}
+           // initialRouteName={!isReady? routes.ONBOARD1: routes.LOBBY}
+            initialRouteName={ routes.ONBOARD}
         >
             {authScreenapp.map((screen) => {
                 return (

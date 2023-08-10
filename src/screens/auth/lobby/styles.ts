@@ -10,6 +10,16 @@ const usestyles = makeStyles(({colors}) => ({
     flex: 1,
     backgroundColor: colors.background,
   },
+  header: {
+   flex: 1,
+   width: '100%',
+   height: '45%',
+   backgroundColor: colors.primary,
+  },
+  headerIMage: {
+    width: '100%',
+    height: '100%',
+  },
   body: {
     alignItems: 'center',
     padding: normalize(24),
@@ -60,7 +70,6 @@ const usestyles = makeStyles(({colors}) => ({
     fontStyle: 'normal',
     fontFamily: 'Urbanist-Regular',
     color: colors.black,
-
   },
   backgroundColors: {
     backgroundColor: colors.primary,

@@ -1,4 +1,5 @@
 export enum routes {
+    ONBOARD = 'ONBOARD',
     ONBOARD1 = 'ONBOARD1',
     ONBOARD2 = 'ONBOARD2',
     ONBOARD3 = 'ONBOARD3',
