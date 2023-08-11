@@ -8,7 +8,7 @@ const {width} = Dimensions.get('screen');
 const Pagination: React.FunctionComponent<any> = ({data, scrollX, index}) => {
 
   return (
-    <View style={styles.container}>
+    <View style={styles.dotcontainer}>
       {data.map((_: any, idx: number) => {
         const inputRange = [(idx - 1) * width, idx * width, (idx + 1) * width];
 
@@ -42,7 +42,7 @@ const Pagination: React.FunctionComponent<any> = ({data, scrollX, index}) => {
 export default Pagination;
 
 const styles = StyleSheet.create({
-  container: {
+  dotcontainer: {
     position: 'absolute',
     bottom: 40,
     left: 24,

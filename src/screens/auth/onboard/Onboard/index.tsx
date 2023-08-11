@@ -1,40 +1,49 @@
 import {useEffect, useRef, useState} from 'react';
-import {Animated, Dimensions, FlatList, StyleSheet, View} from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {BigButton} from '../../../../components';
 import Pagination from './Pagination';
 import SlideItem from './SlideItem';
 import Slides from './slides';
+import {useAppDispatch} from '../../../../hooks';
+import {AppActions} from '../../../../redux/reducer';
+import {NavigationService} from '../../../../navigation';
+import {routes} from '../../../../constants';
+import {Text} from '@rneui/themed';
 
 const Slider = () => {
   const [index, setIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
-  const flatListRef = useRef(null); // Thêm ref cho FlatList
   const totalSlides = Slides.length;
+  const flatListRef = useRef<any>(null);
+  const dispatch = useAppDispatch();
 
-  const handleNextButtonPress = () => {
-    // Kiểm tra nếu đang ở cuối danh sách thì không thực hiện gì cả
+  const handleReady = () => {
+    dispatch(AppActions.handleReady(true));
+    NavigationService.navigate(routes.LOBBY);
+  };
+  const handleNextButton = () => {
     if (index === totalSlides - 1) {
-      return;
+      return handleReady();
     }
-
-    // Chuyển đến slide tiếp theo
     flatListRef.current.scrollToIndex({animated: true, index: index + 1});
     setIndex(index + 1);
   };
 
-  useEffect(() => {
-    scrollX.addListener(({value}) => {
-      const isAtEnd =
-        value >= (totalSlides - 1) * Dimensions.get('window').width;
+  const handlebackButton = () => {
+    if (index === 0) {
+      return;
+    }
+    flatListRef.current.scrollToIndex({animated: true, index: index - 1});
+    setIndex(index + 1);
+  };
 
-      if (isAtEnd) {
-        // Ở cuối danh sách, bạn có thể thực hiện các hành động tại đây
-      }
-    });
-    return () => {
-      scrollX.removeAllListeners();
-    };
-  }, []);
   const handleOnScroll = (event: any) => {
     Animated.event(
       [
@@ -52,6 +61,14 @@ const Slider = () => {
     )(event);
   };
 
+  const handleOnViewableItemsChanged = useRef(({viewableItems}: any) => {
+    setIndex(viewableItems[0].index);
+  }).current;
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+  }).current;
+
   return (
     <View>
       <FlatList
@@ -62,16 +79,39 @@ const Slider = () => {
         snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
         onScroll={handleOnScroll}
+        onViewableItemsChanged={handleOnViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
         ref={flatListRef}
       />
       <Pagination data={Slides} scrollX={scrollX} index={index} />
-      <View style={{width: '30%', position: 'absolute', bottom: 32, right: 24}}>
-        <BigButton textButton="Next" onPressButton={handleNextButtonPress} />
+      <View
+        style={{
+          width: '30%',
+          position: 'absolute',
+          bottom: 32,
+          right: 24,
+          flexDirection: 'row',
+          justifyContent:'space-between'
+        }}>
+        <BigButton textButton="Next" onPressButton={handleNextButton} />
+        
       </View>
+      {index > 0 && (
+        <View
+          style={{
+            width: '20%',
+            position: 'absolute',
+            bottom: 32,
+            right: 150,
+            flexDirection: 'row',
+          }}>
+          <TouchableOpacity onPress={handlebackButton}>
+            <Text>Back</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
 
 export default Slider;
-
-const styles = StyleSheet.create({});
