@@ -8,10 +8,8 @@ const BigButton: React.FunctionComponent<BigButtonProps> = props => {
   const {textButton, onPressButton, style} = props;
 
   return (
-    <TouchableOpacity
-      onPress={onPressButton}
-      style={[styles.button,style]}>
-      <Text style={[styles.buttonText,style]}>{textButton}</Text>
+    <TouchableOpacity onPress={onPressButton} style={[styles.button, style]}>
+      <Text style={[styles.buttonText, style]}>{textButton}</Text>
     </TouchableOpacity>
   );
 };

@@ -6,7 +6,6 @@ const WIDTH = Device.getDeviceWidth();
 const HEIGHT = Device.getDeviceHeight();
 
 const usestyles = makeStyles(({colors}) => ({
-
   button: {
     borderRadius: normalize(99),
     alignItems: 'center',
@@ -25,7 +24,6 @@ const usestyles = makeStyles(({colors}) => ({
     fontFamily: 'Urbanist-Regular',
     color: colors.grey0,
   },
-  
 }));
 
 export default usestyles;
