@@ -1,7 +1,5 @@
-import {StyleSheet, Animated, View, Dimensions} from 'react-native';
 import React from 'react';
-import {Button} from '@rneui/themed';
-import {Device} from '../../../../utils';
+import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 
 const {width} = Dimensions.get('screen');
 

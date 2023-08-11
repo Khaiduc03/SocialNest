@@ -1,21 +1,19 @@
-import {useEffect, useRef, useState} from 'react';
+import { Text } from '@rneui/themed';
+import { useRef, useState } from 'react';
 import {
   Animated,
-  Dimensions,
   FlatList,
-  StyleSheet,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {BigButton} from '../../../../components';
+import { BigButton } from '../../../components';
+import { routes } from '../../../constants';
+import { useAppDispatch } from '../../../hooks';
+import { NavigationService } from '../../../navigation';
+import { AppActions } from '../../../redux/reducer';
 import Pagination from './Pagination';
 import SlideItem from './SlideItem';
 import Slides from './slides';
-import {useAppDispatch} from '../../../../hooks';
-import {AppActions} from '../../../../redux/reducer';
-import {NavigationService} from '../../../../navigation';
-import {routes} from '../../../../constants';
-import {Text} from '@rneui/themed';
 
 const Slider = () => {
   const [index, setIndex] = useState(0);

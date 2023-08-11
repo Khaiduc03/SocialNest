@@ -1,8 +1,9 @@
 import {makeStyles, normalize} from '@rneui/themed';
 
 import {color, fonts} from '@rneui/base';
-import {Device} from '../../../../utils';
+
 import {Dimensions} from 'react-native';
+import { Device } from '../../../utils';
 
 const {width, height} = Dimensions.get('screen');
 const HEIGHT = Device.getDeviceHeight();

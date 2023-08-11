@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Dimensions,
   Image,
   Text,
   View
@@ -9,7 +8,7 @@ import useStyles from './styles';
 
 
 
-const SlideItem:React.FunctionComponent = ({item}:any) => {
+const SlideItem:React.FunctionComponent<any> = ({item}) => {
   const styles = useStyles();
   return (
     <View style={styles.container}>

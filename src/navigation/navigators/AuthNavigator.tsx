@@ -1,49 +1,43 @@
 import React from 'react';
 
 import {
-    CardStyleInterpolators,
-    StackNavigationOptions,
-    createStackNavigator,
+  CardStyleInterpolators,
+  StackNavigationOptions,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import { routes } from '../../constants';
-import { authScreen } from '../../screens/auth';
-import { Screen } from '../../types';
-import { onBroardScreens } from '../../screens/auth/onboard';
-import { useAppSelector } from '../../hooks';
-import { getAppIsReady } from '../../redux/selectors/app.selector';
+import {routes} from '../../constants';
+import {authScreen} from '../../screens/auth';
+import {Screen} from '../../types';
 
+import {useAppSelector} from '../../hooks';
+import {getAppIsReady} from '../../redux/selectors/app.selector';
 
-const isReady:boolean = useAppSelector(getAppIsReady);
+const isReady: boolean = useAppSelector(getAppIsReady);
 const AuthStack = createStackNavigator();
 
-const authScreenapp: Screen[]=[
-    ...authScreen,
-    ...onBroardScreens
-]
+const authScreenapp: Screen[] = [...authScreen];
 
 const screenOptions: StackNavigationOptions = {
-    headerShown: false,
-    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  headerShown: false,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 
 const AuthNavigator = () => {
-    return (
-        <AuthStack.Navigator
-            screenOptions={screenOptions}
-           // initialRouteName={!isReady? routes.ONBOARD1: routes.LOBBY}
-            initialRouteName={ routes.ONBOARD}
-        >
-            {authScreenapp.map((screen) => {
-                return (
-                    <AuthStack.Screen
-                        key={screen.name}
-                        name={screen.name}
-                        component={screen.component}
-                    />
-                );
-            })}
-        </AuthStack.Navigator>
-    );
+  return (
+    <AuthStack.Navigator
+      screenOptions={screenOptions}
+      initialRouteName={!isReady ? routes.ONBOARD : routes.LOBBY}>
+      {authScreenapp.map(screen => {
+        return (
+          <AuthStack.Screen
+            key={screen.name}
+            name={screen.name}
+            component={screen.component}
+          />
+        );
+      })}
+    </AuthStack.Navigator>
+  );
 };
 
 export default AuthNavigator;
