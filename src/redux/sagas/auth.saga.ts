@@ -5,8 +5,9 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {AuthService} from '../services';
 import {AuthActions, LoadingActions} from '../reducer';
 import {ToastAndroid} from 'react-native';
-import { Dialog } from '@rneui/themed';
-import { DialogTitle } from '@rneui/base/dist/Dialog/Dialog.Title';
+import {Dialog} from '@rneui/themed';
+import {DialogTitle} from '@rneui/base/dist/Dialog/Dialog.Title';
+import {GoogleService} from '../../utils/google';
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
@@ -22,7 +23,7 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
           enableSignIn: true,
         }),
       );
-     
+
       ToastAndroid.show('Login success', ToastAndroid.SHORT);
     } else {
       // ToastAndroid.show(data.message, ToastAndroid.SHORT);
@@ -34,6 +35,16 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
   } finally {
     yield put(LoadingActions.hideLoading());
   }
+}
+
+function* loginGoogleSaga(
+  action: PayloadAction<Omit<LoginPayload, 'password' | 'email'>>,
+): Generator {
+  yield put(LoadingActions.showLoading());
+
+  yield GoogleService.login();
+
+  const checkLogin = yield GoogleService.checkSignIn();
 }
 
 //clean user
@@ -52,5 +63,5 @@ function* cleanUser(): Generator {
 
 export default function* watchAuthSaga() {
   yield takeLatest(AuthActions.handleLogin.type, loginSaga);
-
+  yield takeLatest(AuthActions.handleLoginGoogle.type,loginGoogleSaga );
 }

@@ -1,29 +1,32 @@
-import {PixelRatio, Text, TouchableOpacity, View} from 'react-native';
+import { Icon, Image } from '@rneui/themed';
 import React from 'react';
-import usestyles from './styles';
-import LobbyImage1 from '../../../assets/images/LobbyImage';
-import {Svg} from 'react-native-svg';
-import {Device} from '../../../utils';
-import {Icon, Image} from '@rneui/themed';
-import {GoogleIcon} from '../../../assets/icons';
-import {NavigationService} from '../../../navigation';
-import {routes} from '../../../constants';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { images } from '../../../assets';
+import { GoogleIcon } from '../../../assets/icons';
+import { routes } from '../../../constants';
+import { NavigationService } from '../../../navigation';
+import usestyles from './styles';
+import { useAppDispatch } from '../../../hooks';
+import { AuthActions } from '../../../redux/reducer';
 
 const LobbyScreen: React.FunctionComponent = () => {
   const styles = usestyles();
-  const HEIGHT = Device.getDeviceHeight();
-  const WIDTH = Device.getDeviceWidth();
+
+  const dispatch = useAppDispatch();
+
+  const handleGoogle = async () => {
+    dispatch(
+      AuthActions.handleLoginGoogle({
+        device_token: '1234567890',
+      })
+    );
+  };
   
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image style={styles.headerIMage} source={images.logo}  />
       </View>
-      {/* <LobbyImage1 /> */}
-      {/* <Svg width={WIDTH} height={HEIGHT / 2}>
-      
-      </Svg> */}
       <View style={styles.body}>
         <View style={styles.viewTitle}>
           <Text style={styles.title}>
@@ -41,7 +44,7 @@ const LobbyScreen: React.FunctionComponent = () => {
           Newsly is a social network that allows you to connect with friends
         </Text>
         <View style={styles.bottom}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleGoogle}>
             <GoogleIcon />
             <Text style={styles.buttonText}> Continue with Google</Text>
           </TouchableOpacity>

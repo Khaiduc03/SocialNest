@@ -15,7 +15,7 @@ export type AuthState = {
 };
 
 export type LoginPayload = {
-  username: string;
+  email: string;
   password: string;
   device_token: string;
 };

@@ -1,28 +1,27 @@
-import React, {FunctionComponent} from 'react';
+import React, { FunctionComponent } from 'react';
 
-import {Text} from '@rneui/base';
+import { Text } from '@rneui/base';
 import {
   Keyboard,
   KeyboardAvoidingView,
-  TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
+  View
 } from 'react-native';
 
-import useStyles from './styles';
-import Header from '../../../components/customs/Headers';
+import { CheckBox } from '@rneui/themed';
+import { GoogleIcon } from '../../../assets/icons';
 import {
   AuthHeader,
   BigButton,
   InputCustom,
   SmallButton,
 } from '../../../components';
-import {CheckBox, Icon} from '@rneui/themed';
-import {GoogleIcon} from '../../../assets/icons';
-import {useAppDispatch} from '../../../hooks';
-import {AuthActions} from '../../../redux/reducer';
-import { NavigationService } from '../../../navigation';
+import Header from '../../../components/customs/Headers';
 import { routes } from '../../../constants';
+import { useAppDispatch } from '../../../hooks';
+import { NavigationService } from '../../../navigation';
+import { AuthActions } from '../../../redux/reducer';
+import useStyles from './styles';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
@@ -30,10 +29,10 @@ const SignIn: FunctionComponent = () => {
   const toggleCheckbox = () => setChecked(!checked);
 
   const [credentials, setCredentials] = React.useState<{
-    username: string;
+    email: string;
     password: string;
   }>({
-    username: 'p3nhox100',
+    email: 'p3nhox100',
     password: '123456',
   });
 
@@ -42,7 +41,7 @@ const SignIn: FunctionComponent = () => {
   const handleSignIn = async () => {
     dispatch(
       AuthActions.handleLogin({
-        username: credentials.username,
+        email: credentials.email,
         password: credentials.password,
         device_token: '1234567890',
       }),
@@ -69,9 +68,9 @@ const SignIn: FunctionComponent = () => {
               <Text style={styles.titleInput}>Username</Text>
               <InputCustom
                 placeholder="Enter your username"
-                value={credentials.username}
+                value={credentials.email}
                 onChangeText={text =>
-                  setCredentials({...credentials, username: text})
+                  setCredentials({...credentials, email: text})
                 }
               />
               <Text style={styles.titleInput}>Password</Text>

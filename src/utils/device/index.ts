@@ -5,6 +5,9 @@ export class Device {
   static getDeviceWidth() {
     return Dimensions.get('window').width;
   }
+  static getDeviceWithScreen() {
+    return Dimensions.get('screen').width;
+  }
 
   static getDeviceHeight() {
     return Dimensions.get('window').height;
