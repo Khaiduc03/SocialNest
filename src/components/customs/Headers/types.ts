@@ -6,9 +6,10 @@ export type HeaderProps = {
   title?: string;
   leftIcon?: boolean;
   onPressLeftIcon?: () => void;
-  rightIcon?: ReactElement;
+  rightIcon?: boolean;
   onPressRightIcon?: () => void;
   style?: ViewProps['style'];
   titleStyle?: TextStyle;
   logo?: boolean;
+  iconColor?: string[]
 };

@@ -56,6 +56,7 @@ const SignIn: FunctionComponent = () => {
             <Header
               leftIcon={true}
               onPressLeftIcon={() => {
+                Keyboard.dismiss()
                 NavigationService.navigate(routes.LOBBY);
               }}
             />

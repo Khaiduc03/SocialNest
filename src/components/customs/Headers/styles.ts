@@ -1,7 +1,6 @@
 import {normalize, makeStyles} from '@rneui/themed';
 import {Device} from '../../../utils';
 
-const WIGHT = Device.getDeviceWidth();
 Device.getDeviceWidth();
 const useStyles = makeStyles(({colors}) => ({
   container: {
@@ -9,6 +8,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     backgroundColor: colors.background,
     marginVertical: normalize(12),
+    height: Device.getDeviceWithScreen()*0.04
   },
   icon: {
     justifyContent: 'center',
@@ -16,23 +16,24 @@ const useStyles = makeStyles(({colors}) => ({
     width: normalize(30),
     height: normalize(30),
   },
-  title: {
-    flex: 1,
-    paddingHorizontal: normalize(20),
-    fontSize: 18,
-    fontWeight: '700',
-  },
+
   iconRight: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: normalize(30),
-    height: normalize(30),
+    right: 0,
+    position: 'absolute',
+  },
+  iconleft: {
+    left: 0,
+    position: 'absolute',
   },
   colorPrimary: {
     color: colors.primary,
   },
   colorBlack: {
     color: colors.black,
+  },
+  caseIcon: {
+    flex: 1,
+    alignItems: 'center',
   },
 }));
 

@@ -2,9 +2,11 @@ import React from 'react';
 
 import {TouchableOpacity, View} from 'react-native';
 
+import {Icon} from '@rneui/themed';
 import useStyles from './styles';
 import {HeaderProps} from './types';
-import {Icon} from '@rneui/themed';
+
+import {CaseIcon} from '../../../assets/icons';
 // import StyledText from '../StyledText';
 
 const Header: React.FunctionComponent<HeaderProps> = props => {
@@ -14,9 +16,8 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
     onPressRightIcon,
     rightIcon,
     style,
-    title,
-    titleStyle,
     logo,
+    iconColor,
   } = props;
   const styles = useStyles();
   const leftPress = () => {
@@ -34,7 +35,7 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
   return (
     <View style={[styles.container, style]}>
       {leftIcon && (
-        <TouchableOpacity onPress={leftPress}>
+        <TouchableOpacity onPress={leftPress} style={styles.iconleft}>
           <Icon
             name={'arrow-back-outline'}
             type="ionicon"
@@ -44,20 +45,18 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
         </TouchableOpacity>
       )}
 
-      {logo && (
-        <TouchableOpacity onPress={leftPress}>
-          <Icon
-            name={'arrow-back-outline'}
-            type="ionicon"
-            size={24}
-            color={styles.colorBlack.color}
-          />
-        </TouchableOpacity>
-      )}
+      <View style={styles.caseIcon}>
+        {logo && <CaseIcon colors={props.iconColor}  />}
+      </View>
 
       {rightIcon && (
-        <TouchableOpacity onPress={rightPress} style={styles.icon}>
-          {rightIcon}
+        <TouchableOpacity onPress={rightPress} style={styles.iconRight}>
+          <Icon
+            name={'arrow-forward-outline'}
+            type="ionicon"
+            size={24}
+            color={styles.colorBlack.color}
+          />
         </TouchableOpacity>
       )}
     </View>

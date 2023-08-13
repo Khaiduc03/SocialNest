@@ -15,14 +15,13 @@ const useStyles = makeStyles(({colors}) => ({
     paddingVertical: normalize(24),
   },
   title: {
-    fontSize: normalize(30),
+    fontSize: normalize(26),
     fontWeight: '600',
     fontFamily: 'Urbanist-Bold',
     color: colors.black,
   },
   subTitle: {
-    fontSize: normalize(16),
-    fontWeight: '400',
+    fontSize: normalize(14),
     fontFamily: 'Urbanist-Regular',
     color: colors.black,
     paddingVertical: normalize(14),
