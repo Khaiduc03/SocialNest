@@ -1,13 +1,14 @@
-import { Icon, Image } from '@rneui/themed';
+import {Icon, Image} from '@rneui/themed';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { images } from '../../../assets';
-import { GoogleIcon } from '../../../assets/icons';
-import { routes } from '../../../constants';
-import { NavigationService } from '../../../navigation';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {images} from '../../../assets';
+import {GoogleIcon} from '../../../assets/icons';
+import {routes} from '../../../constants';
+import {NavigationService} from '../../../navigation';
 import usestyles from './styles';
-import { useAppDispatch } from '../../../hooks';
-import { AuthActions } from '../../../redux/reducer';
+import {useAppDispatch} from '../../../hooks';
+import {AuthActions} from '../../../redux/reducer';
+import {GoogleService} from '../../../utils/google';
 
 const LobbyScreen: React.FunctionComponent = () => {
   const styles = usestyles();
@@ -15,17 +16,25 @@ const LobbyScreen: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
 
   const handleGoogle = async () => {
-    dispatch(
-      AuthActions.handleLoginGoogle({
-        device_token: '1234567890',
+    GoogleService.signIn()
+      .then(res => {
+        console.log(res);
       })
-    );
+      .catch(err => {
+        console.log(err);
+      });
+
+    // dispatch(
+    //   AuthActions.handleLoginGoogle({
+    //     device_token: '1234567890',
+    //   })
+    // );
   };
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image style={styles.headerIMage} source={images.logo}  />
+        <Image style={styles.headerIMage} source={images.logo} />
       </View>
       <View style={styles.body}>
         <View style={styles.viewTitle}>
