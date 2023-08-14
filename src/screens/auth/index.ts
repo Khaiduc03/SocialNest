@@ -3,6 +3,7 @@ import {Screen} from '../../types';
 import CreateAccount from './create-account';
 import LobbyScreen from './lobby';
 import SignIn from './sign-in';
+import UpdateProfile from './update-profile';
 
 export const authScreen: Screen[] = [
   {
@@ -11,7 +12,7 @@ export const authScreen: Screen[] = [
   },
   {
     name: routes.CREATE_ACCOUNT,
-    component: CreateAccount,
+    component: UpdateProfile,
   },
   {
     name: routes.LOBBY,
