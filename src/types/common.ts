@@ -1,7 +1,10 @@
 import {FunctionComponent} from 'react';
 import {routes} from '../constants';
-import {Image} from 'react-native';
-
+export interface PayloadHttpList<T> {
+  code?: number;
+  message?: string;
+  data?: T[];
+}
 export type uuid = {
   _id: string;
 };

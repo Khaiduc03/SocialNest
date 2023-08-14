@@ -32,7 +32,7 @@ const SignIn: FunctionComponent = () => {
     email: string;
     password: string;
   }>({
-    email: 'p3nhox100',
+    email: 'p3nhox99@gmail.com',
     password: '123456',
   });
 
@@ -62,13 +62,13 @@ const SignIn: FunctionComponent = () => {
             />
             <AuthHeader
               title="Login 🔐"
-              subTitle="Please enter your username/email and password to sign in."
+              subTitle="Please enter your email and password to sign in."
             />
 
             <View style={styles.formContainer}>
-              <Text style={styles.titleInput}>Username</Text>
+              <Text style={styles.titleInput}>email</Text>
               <InputCustom
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 value={credentials.email}
                 onChangeText={text =>
                   setCredentials({...credentials, email: text})

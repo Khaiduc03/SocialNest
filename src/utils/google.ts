@@ -1,44 +1,59 @@
 import {GoogleSignin, User} from '@react-native-google-signin/google-signin';
-
-// try {
-//   GoogleSignin.configure({
-//     webClientId:
-//       '809273932713-h4mmdl8evuhc1psn5htd3blf1l2rc180.apps.googleusercontent.com',
-//   });
-// } catch (error) {
-//   console.log(error);
-// }
+GoogleSignin.configure({
+  webClientId:
+    '809273932713-im11qm5me5ql14qeo7unpjur7j3jg5cl.apps.googleusercontent.com',
+});
 
 export class GoogleService {
-  // constructor(
-  //   webClientId: string = '809273932713-h4mmdl8evuhc1psn5htd3blf1l2rc180.apps.googleusercontent.com',
-  // ) {
-  //   GoogleSignin.configure({
-  //     webClientId,
-  //   });
-  // }
-
-  static async signIn(): Promise<User | null> {
+  static async login(): Promise<User> {
     try {
-      GoogleSignin.configure({
-            webClientId:'809273932713-im11qm5me5ql14qeo7unpjur7j3jg5cl.apps.googleusercontent.com',
-          });
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo)
       return userInfo;
     } catch (error) {
       console.log(error);
-      return null;
     }
+    return {} as User;
   }
 
-  static async signOut(): Promise<void> {
+  static async currentUser(): Promise<User> {
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+      const userInfo = await GoogleSignin.getCurrentUser();
+      if (!userInfo) {
+        return {} as User;
+      }
+      return userInfo;
     } catch (error) {
       console.log(error);
+    }
+    return {} as User;
+  }
+
+  static async checkSignIn(): Promise<boolean> {
+    try {
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      return isSignedIn;
+    } catch (err) {
+      console.log(err);
+    }
+    return false;
+  }
+
+  static async getToken(): Promise<string | null> {
+    try {
+      const token = await GoogleSignin.getTokens();
+      return token.accessToken;
+    } catch (err) {
+      console.log(err);
+    }
+    return null;
+  }
+
+  static async logout(): Promise<void> {
+    try {
+      await GoogleSignin.signOut();
+    } catch (err) {
+      console.log(err);
     }
   }
 }

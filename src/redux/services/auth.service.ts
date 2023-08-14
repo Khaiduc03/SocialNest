@@ -12,7 +12,8 @@ export class AuthService {
   ) {
     return await apiService.post(Endpoints.CREATE_ACCOUNT_ENDPOINT, payload);
   }
-  static async hanleGGLogin(payload: Omit<LoginPayload, 'password'>) {
+  static async hanleGGLogin(payload: Omit<LoginPayload, 'password' | 'email'>) {
+    console.log(Endpoints.SIGN_IN_GOOGLE)
     return await apiService.post(Endpoints.SIGN_IN_GOOGLE, payload);
   }
 }

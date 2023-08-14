@@ -4,14 +4,14 @@
 // dotenv.config();
 
 // //URL
- export const BASE_URL = 'http://10.0.1.25:3000'
+export const BASE_URL = 'http://192.168.0.104:3000';
 
 export enum Endpoints {
   //AUTH
   LOGIN_ENDPOINT = '/auth/login',
   CREATE_ACCOUNT_ENDPOINT = '/auth/create-account',
   REFRESH_TOKEN_ENDPOINT = '/auth/refresh-token',
-  SIGN_IN_GOOGLE = '/auth/sign-in-google',
+  SIGN_IN_GOOGLE = '/auth/google-login',
   //USER
   GET_USER_ENDPOINT = '/user',
   UPLOAD_USER_AVATAR_ENDPOINT = '/user/upload-avatar',

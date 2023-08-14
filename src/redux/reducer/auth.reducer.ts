@@ -1,8 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthState, LoginPayload, RefreshToken, User } from '../types';
-import { Redux } from '../types/redux.type';
-
-
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {AuthState, LoginPayload, RefreshToken, User} from '../types';
+import {Redux} from '../types/redux.type';
 
 const initialState: AuthState = {
   enableSignIn: false,
@@ -10,7 +8,6 @@ const initialState: AuthState = {
   accessToken: '',
   refreshToken: '',
   user: {},
-  isGoogle: false,
 };
 
 const reducer = createSlice({
@@ -18,14 +15,17 @@ const reducer = createSlice({
   initialState,
   reducers: {
     //login
-    handleLogin: (state: AuthState, _: PayloadAction<LoginPayload>) => {
+    handleLogin: (
+      state: AuthState,
+      _: PayloadAction<Partial<LoginPayload>>,
+    ) => {
       return {
         ...state,
       };
     },
     handleLoginSuccess: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -34,7 +34,7 @@ const reducer = createSlice({
     },
     handleLoginFailed: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -45,7 +45,7 @@ const reducer = createSlice({
     //login google
     handleLoginGoogle: (
       state: AuthState,
-      _: PayloadAction<Omit<LoginPayload, 'password' | 'email'>>
+      _: PayloadAction<Omit<LoginPayload, 'password' | 'email'|'idToken'>>,
     ) => {
       return {
         ...state,
@@ -67,7 +67,7 @@ const reducer = createSlice({
     //create account
     handleCreateAccount: (
       state: AuthState,
-      _: PayloadAction<Omit<LoginPayload, 'device_token'>>
+      _: PayloadAction<Omit<LoginPayload, 'device_token'>>,
     ) => {
       return {
         ...state,
@@ -75,7 +75,7 @@ const reducer = createSlice({
     },
     handleCreateAccountSuccess: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -84,7 +84,7 @@ const reducer = createSlice({
     },
     handleCreateAccountFailed: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -100,7 +100,7 @@ const reducer = createSlice({
     },
     getUserInfoSuccess: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -109,7 +109,7 @@ const reducer = createSlice({
     },
     getUserInfoFailed: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
@@ -142,15 +142,10 @@ const reducer = createSlice({
         Partial<
           Pick<
             User,
-            | 'full_name'
-            | 'nick_name'
-            | 'summary'
-            | 'address'
-            | 'phone_number'
-            | 'email'
+            'full_name' | 'summary' | 'address' | 'phone_number' | 'email'
           >
         >
-      >
+      >,
     ) => {
       return {
         ...state,

@@ -5,7 +5,7 @@ import {AuthActions} from '../reducer';
 import {ToastAndroid} from 'react-native';
 
 const apiService = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'http://192.168.0.104:3000',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -5,16 +5,15 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {AuthService} from '../services';
 import {AuthActions, LoadingActions} from '../reducer';
 import {ToastAndroid} from 'react-native';
-import {Dialog} from '@rneui/themed';
+
 import {DialogTitle} from '@rneui/base/dist/Dialog/Dialog.Title';
 import {GoogleService} from '../../utils/google';
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
-  // yield put(LoadingActions.showLoading());
-
   try {
     const {data}: any = yield call(AuthService.handleLogin, action.payload);
+    console.log(data)
     if (data.code === 200) {
       yield put(
         AuthActions.handleLoginSuccess({
@@ -26,7 +25,7 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
 
       ToastAndroid.show('Login success', ToastAndroid.SHORT);
     } else {
-      // ToastAndroid.show(data.message, ToastAndroid.SHORT);
+      ToastAndroid.show(data.message, ToastAndroid.SHORT);
       DialogTitle(data.message);
       yield call(cleanUser);
     }
@@ -40,11 +39,37 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
 function* loginGoogleSaga(
   action: PayloadAction<Omit<LoginPayload, 'password' | 'email'>>,
 ): Generator {
-  yield put(LoadingActions.showLoading());
-
-  yield GoogleService.login();
-
-  const checkLogin = yield GoogleService.checkSignIn();
+  //  yield put(LoadingActions.showLoading());
+  try {
+    console.log('hi')
+    yield GoogleService.logout();
+    const checkLogin = yield GoogleService.checkSignIn();
+    console.log(checkLogin)
+    if (!checkLogin) {
+      const {idToken}: any = yield GoogleService.login();
+      console.log(idToken)
+      const {data}: any = yield call(AuthService.hanleGGLogin, {
+        device_token: action.payload.device_token,
+        idToken,
+      });
+      console.log(data)
+      if (data.code === 200) {
+        yield put(
+          AuthActions.handleLoginSuccess({
+            accessToken: data.data.access_token,
+            refreshToken: data.data.refresh_token,
+            enableSignIn: true,
+          }),
+        );
+        ToastAndroid.show('Login google success', ToastAndroid.SHORT);
+      } else {
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        yield call(cleanUser);
+      }
+    }
+  } catch (error: any) {
+    console.log(error.message);
+  }
 }
 
 //clean user
@@ -56,12 +81,11 @@ function* cleanUser(): Generator {
       refreshToken: '',
       enableBiometric: false,
       user: {},
-      isGoogle: false,
     }),
   );
 }
 
 export default function* watchAuthSaga() {
   yield takeLatest(AuthActions.handleLogin.type, loginSaga);
-  yield takeLatest(AuthActions.handleLoginGoogle.type,loginGoogleSaga );
+  yield takeLatest(AuthActions.handleLoginGoogle.type, loginGoogleSaga);
 }

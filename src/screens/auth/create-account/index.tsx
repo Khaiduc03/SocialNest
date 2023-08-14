@@ -30,7 +30,7 @@ const CreateAccount: FunctionComponent = () => {
     email: string;
     password: string;
   }>({
-    email: 'p3nhox100',
+    email: 'p3nhox100@gmail.com',
     password: '123456',
   });
 
