@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent} from 'react';
 
-import { Text } from '@rneui/base';
+import {Text} from '@rneui/base';
 import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
 
-import { CheckBox } from '@rneui/themed';
-import { GoogleIcon } from '../../../assets/icons';
+import {CheckBox} from '@rneui/themed';
+import {GoogleIcon} from '../../../assets/icons';
 import {
   AuthHeader,
   BigButton,
@@ -17,14 +17,22 @@ import {
   SmallButton,
 } from '../../../components';
 import Header from '../../../components/customs/Headers';
-import { routes } from '../../../constants';
-import { useAppDispatch } from '../../../hooks';
-import { NavigationService } from '../../../navigation';
-import { AuthActions } from '../../../redux/reducer';
+import {routes} from '../../../constants';
+import {useAppDispatch} from '../../../hooks';
+import {NavigationService} from '../../../navigation';
+import {AuthActions} from '../../../redux/reducer';
 import useStyles from './styles';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
+
+  const showToast = () => {
+    Toast.show({
+      type: 'tomatoToast',
+      props: {uuid: 'bba1a7d0-6ab2-4a0a-a76e-ebbe05ae6d70'},
+    });
+  };
 
   const toggleCheckbox = () => setChecked(!checked);
 
@@ -56,7 +64,7 @@ const SignIn: FunctionComponent = () => {
             <Header
               leftIcon={true}
               onPressLeftIcon={() => {
-                Keyboard.dismiss()
+                Keyboard.dismiss();
                 NavigationService.navigate(routes.LOBBY);
               }}
             />
@@ -103,6 +111,7 @@ const SignIn: FunctionComponent = () => {
                   nameIcon="logo-facebook"
                   typeIcon="ionicon"
                   isIonicons
+                  onPressButton={showToast}
                 />
               </View>
               <View style={styles.bottom}>

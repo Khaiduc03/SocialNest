@@ -3,7 +3,8 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {RootNavigation, ThemeContext} from './src';
-
+import Toast from 'react-native-toast-message';
+import { toastConfig } from './src/utils/toastConfig';
 const App: FunctionComponent = () => {
   return (
     <SafeAreaProvider
@@ -19,6 +20,8 @@ const App: FunctionComponent = () => {
 
           {/* MAIN APP */}
           <RootNavigation />
+          <Toast config={toastConfig}  />
+
 
           {/* Modal progressing when upgrade version of app */}
         </GestureHandlerRootView>
