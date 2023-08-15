@@ -13,7 +13,6 @@ import {GoogleService} from '../../utils/google';
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
   try {
     const {data}: any = yield call(AuthService.handleLogin, action.payload);
-    console.log(data)
     if (data.code === 200) {
       yield put(
         AuthActions.handleLoginSuccess({

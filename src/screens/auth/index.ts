@@ -18,4 +18,8 @@ export const authScreen: Screen[] = [
     name: routes.LOBBY,
     component: LobbyScreen,
   },
+  {
+    name: routes.UPDATE_PROFILE,
+    component: UpdateProfile,
+  },
 ];

@@ -8,7 +8,7 @@ export class AuthService {
     return await apiService.post(Endpoints.LOGIN_ENDPOINT, payload);
   }
   static async handleCreateAccount(
-    payload: Omit<LoginPayload, 'device_token'>
+    payload: Omit<LoginPayload, 'device_token'| 'idToken'>
   ) {
     return await apiService.post(Endpoints.CREATE_ACCOUNT_ENDPOINT, payload);
   }
