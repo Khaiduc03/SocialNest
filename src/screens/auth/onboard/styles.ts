@@ -39,23 +39,21 @@ const useStyles = makeStyles(({colors}) => ({
     fontSize: 32,
     fontWeight: 'bold',
   },
-  button: {
-    borderRadius: normalize(99),
+  buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
-    flexDirection: 'row',
-    marginVertical: normalize(HEIGHT * 0.01),
-    height: normalize(HEIGHT * 0.058),
+    position: 'absolute',
+    bottom: 24,
+    right: 16,
+    width: '30%',
+  },
+  nextButton: {
     width: '70%',
   },
-  buttonText: {
-    fontSize: normalize(HEIGHT * 0.02),
-    fontWeight: '700',
-    letterSpacing: normalize(0.2),
-    fontStyle: 'normal',
-    fontFamily: 'Urbanist-Regular',
-    color: colors.grey0,
+  backButton: {
+    width: '40%',
+    position: 'absolute',
+    left: -32,
   },
 }));
 

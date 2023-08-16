@@ -9,6 +9,7 @@ import {AppActions} from '../../../redux/reducer';
 import Pagination from './Pagination';
 import SlideItem from './SlideItem';
 import Slides from './slides';
+import useStyles from './styles';
 
 const Slider = () => {
   const [index, setIndex] = useState(0);
@@ -16,6 +17,7 @@ const Slider = () => {
   const totalSlides = Slides.length;
   const flatListRef = useRef<any>(null);
   const dispatch = useAppDispatch();
+  const styles = useStyles();
 
   const handleReady = () => {
     dispatch(AppActions.handleReady(true));
@@ -77,28 +79,13 @@ const Slider = () => {
         ref={flatListRef}
       />
       <Pagination data={Slides} scrollX={scrollX} index={index} />
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          bottom: 24,
-          right: 16,
-          width: '30%',
-        }}>
-        <View
-          style={{
-            width: '70%',
-          }}>
+      <View style={styles.buttonContainer}>
+        <View style={styles.nextButton}>
           <BigButton textButton="Next" onPressButton={handleNextButton} />
         </View>
         {index > 0 && (
           <View
-            style={{
-              width: '40%',
-              position: 'absolute',
-          left: -32,
-            }}>
+            style={styles.backButton}>
             <TouchableOpacity onPress={handlebackButton}>
               <Text>Back</Text>
             </TouchableOpacity>

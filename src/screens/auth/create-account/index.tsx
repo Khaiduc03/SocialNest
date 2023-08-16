@@ -24,7 +24,6 @@ const CreateAccount: FunctionComponent = () => {
   const handleAvatarPress = () => {
     setIsZoomed(!isZoomed);
   };
-  console.log(isZoomed);
 
   const [credentials, setCredentials] = React.useState<{
     email: string;
@@ -45,6 +44,10 @@ const CreateAccount: FunctionComponent = () => {
               leftIcon={true}
               onPressLeftIcon={() => {
                 Keyboard.dismiss();
+                if (NavigationService.canGoBack()) {
+                  NavigationService.goBack();
+                  return;
+                }
                 NavigationService.navigate(routes.LOBBY);
               }}
             />

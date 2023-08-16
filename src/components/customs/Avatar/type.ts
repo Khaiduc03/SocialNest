@@ -4,6 +4,7 @@ import {ViewProps} from 'react-native';
 export type AvatarProps = {
 
   onPressAvatar?: () => void;
+  isZoomable?: boolean;
 
 
 };

@@ -25,6 +25,7 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   const nextPress = () => {
     if (props.onPressAvatar) {
       props.onPressAvatar();
+     // console.log(   props.onPressAvatar())
     }
   };
 

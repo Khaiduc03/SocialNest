@@ -65,6 +65,10 @@ const SignIn: FunctionComponent = () => {
               leftIcon={true}
               onPressLeftIcon={() => {
                 Keyboard.dismiss();
+                if (NavigationService.canGoBack()) {
+                  NavigationService.goBack();
+                  return;
+                }
                 NavigationService.navigate(routes.LOBBY);
               }}
             />
