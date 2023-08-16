@@ -11,10 +11,10 @@ const usestyles = makeStyles(({colors}) => ({
     backgroundColor: colors.background,
   },
   header: {
-   flex: 1,
-   width: '100%',
-   height: '45%',
-   backgroundColor: colors.primary,
+    flex: 1,
+    width: '100%',
+    height: '40%',
+    backgroundColor: colors.secondary,
   },
   headerIMage: {
     width: '100%',
@@ -31,7 +31,7 @@ const usestyles = makeStyles(({colors}) => ({
     alignItems: 'center',
   },
   title: {
-    fontSize: normalize(HEIGHT * 0.039),
+    fontSize: normalize(HEIGHT * 0.035),
     fontFamily: 'Urbanist-Bold',
     color: colors.black,
     fontWeight: '700',

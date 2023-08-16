@@ -9,6 +9,7 @@ import {NavigationService} from '../../../navigation';
 import {GoogleService} from '../../../utils/google';
 import usestyles from './styles';
 import { AuthActions } from '../../../redux/reducer';
+import LottieView from 'lottie-react-native';
 
 const LobbyScreen: React.FunctionComponent = () => {
   const styles = usestyles();
@@ -27,20 +28,16 @@ const LobbyScreen: React.FunctionComponent = () => {
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Image style={styles.headerIMage} source={images.logo} />
+          <LottieView style={styles.headerIMage} source={images.logo} autoPlay/>
         </View>
         <View style={styles.body}>
           <View style={styles.viewTitle}>
             <Text style={styles.title}>
               Welcome to
-              <Text style={[styles.title, styles.colors]}> Newsly</Text>{' '}
+              <Text style={[styles.title, styles.colors]}> Easy </Text>
+              <Text style={styles.title}>Rent</Text>
             </Text>
-            <Icon
-              name="logo-octocat"
-              type="ionicon"
-              color={styles.colors.color}
-              size={30}
-            />
+            
           </View>
           <Text style={styles.subTitle}>
             Newsly is a social network that allows you to connect with friends
