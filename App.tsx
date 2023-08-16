@@ -1,11 +1,17 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useEffect} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {RootNavigation, ThemeContext} from './src';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './src/utils/toastConfig';
+import SplashScreen from 'react-native-lottie-splash-screen';
 const App: FunctionComponent = () => {
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }
+  , []);
   return (
     <SafeAreaProvider
       initialMetrics={{

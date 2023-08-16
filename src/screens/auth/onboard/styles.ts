@@ -3,7 +3,7 @@ import {makeStyles, normalize} from '@rneui/themed';
 import {color, fonts} from '@rneui/base';
 
 import {Dimensions} from 'react-native';
-import { Device } from '../../../utils';
+import {Device} from '../../../utils';
 
 const {width, height} = Dimensions.get('screen');
 const HEIGHT = Device.getDeviceHeight();
@@ -38,6 +38,24 @@ const useStyles = makeStyles(({colors}) => ({
   price: {
     fontSize: 32,
     fontWeight: 'bold',
+  },
+  button: {
+    borderRadius: normalize(99),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primary,
+    flexDirection: 'row',
+    marginVertical: normalize(HEIGHT * 0.01),
+    height: normalize(HEIGHT * 0.058),
+    width: '70%',
+  },
+  buttonText: {
+    fontSize: normalize(HEIGHT * 0.02),
+    fontWeight: '700',
+    letterSpacing: normalize(0.2),
+    fontStyle: 'normal',
+    fontFamily: 'Urbanist-Regular',
+    color: colors.grey0,
   },
 }));
 

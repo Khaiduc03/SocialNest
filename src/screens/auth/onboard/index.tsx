@@ -1,16 +1,11 @@
-import { Text } from '@rneui/themed';
-import { useRef, useState } from 'react';
-import {
-  Animated,
-  FlatList,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import { BigButton } from '../../../components';
-import { routes } from '../../../constants';
-import { useAppDispatch } from '../../../hooks';
-import { NavigationService } from '../../../navigation';
-import { AppActions } from '../../../redux/reducer';
+import {Text} from '@rneui/themed';
+import {useRef, useState} from 'react';
+import {Animated, FlatList, TouchableOpacity, View} from 'react-native';
+import {BigButton} from '../../../components';
+import {routes} from '../../../constants';
+import {useAppDispatch} from '../../../hooks';
+import {NavigationService} from '../../../navigation';
+import {AppActions} from '../../../redux/reducer';
 import Pagination from './Pagination';
 import SlideItem from './SlideItem';
 import Slides from './slides';
@@ -84,30 +79,32 @@ const Slider = () => {
       <Pagination data={Slides} scrollX={scrollX} index={index} />
       <View
         style={{
-          width: '30%',
+          alignItems: 'center',
+          justifyContent: 'center',
           position: 'absolute',
-          bottom: 32,
-          right: 24,
-          flexDirection: 'row',
-          justifyContent:'space-between'
+          bottom: 24,
+          right: 16,
+          width: '30%',
         }}>
-        <BigButton textButton="Next" onPressButton={handleNextButton} />
-        
-      </View>
-      {index > 0 && (
         <View
           style={{
-            width: '20%',
-            position: 'absolute',
-            bottom: 32,
-            right: 150,
-            flexDirection: 'row',
+            width: '70%',
           }}>
-          <TouchableOpacity onPress={handlebackButton}>
-            <Text>Back</Text>
-          </TouchableOpacity>
+          <BigButton textButton="Next" onPressButton={handleNextButton} />
         </View>
-      )}
+        {index > 0 && (
+          <View
+            style={{
+              width: '40%',
+              position: 'absolute',
+          left: -32,
+            }}>
+            <TouchableOpacity onPress={handlebackButton}>
+              <Text>Back</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
