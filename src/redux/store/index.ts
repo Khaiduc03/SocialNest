@@ -7,6 +7,7 @@ import {AppReducer, AuthReducer, LoadingReducer} from '../reducer';
 import persistReducer from 'redux-persist/es/persistReducer';
 import createSagaMiddleware from 'redux-saga';
 import RootSaga from '../sagas';
+import { AlertReducer } from '../reducer/alert.reducer';
 
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',
@@ -23,6 +24,7 @@ const rootReducers = combineReducers({
   auth: AuthReducer,
   loading: LoadingReducer,
   app: AppReducer,
+  alert: AlertReducer,
 });
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducers);
 

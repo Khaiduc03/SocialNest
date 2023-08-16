@@ -8,4 +8,5 @@ export const images ={
     news2: require('./news2.json'),
     news3: require('./news3.json'),
     logo: require('./logo.json'),
+    success: require('./logo.json'),
 }

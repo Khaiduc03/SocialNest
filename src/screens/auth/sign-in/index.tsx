@@ -23,16 +23,17 @@ import {NavigationService} from '../../../navigation';
 import {AuthActions} from '../../../redux/reducer';
 import useStyles from './styles';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import { AlertActions } from '../../../redux/reducer/alert.reducer';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
 
-  const showToast = () => {
-    Toast.show({
-      type: 'tomatoToast',
-      props: {uuid: 'bba1a7d0-6ab2-4a0a-a76e-ebbe05ae6d70'},
-    });
-  };
+  // const showToast = () => {
+  //   Toast.show({
+  //     type: 'tomatoToast',
+  //     props: {uuid: 'bba1a7d0-6ab2-4a0a-a76e-ebbe05ae6d70'},
+  //   });
+  // };
 
   const toggleCheckbox = () => setChecked(!checked);
 
@@ -55,6 +56,22 @@ const SignIn: FunctionComponent = () => {
       }),
     );
   };
+
+
+
+  const onPress = () => {
+    dispatch(
+        AlertActions.setDataAlert({
+            title: 'Logout',
+            description: 'Are you sure you want to logout?',
+            onAccept: () => {
+                console.log('hio')
+            },
+        })
+    );
+
+    // dispatch(LoadingActions.showLoading());
+};
 
   return (
     <View style={styles.container}>
@@ -115,7 +132,10 @@ const SignIn: FunctionComponent = () => {
                   nameIcon="logo-facebook"
                   typeIcon="ionicon"
                   isIonicons
-                  onPressButton={showToast}
+                  onPressButton={() => {
+                    onPress();
+                  }
+                  }
                 />
               </View>
               <View style={styles.bottom}>

@@ -6,6 +6,8 @@ import {RootNavigation, ThemeContext} from './src';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './src/utils/toastConfig';
 import SplashScreen from 'react-native-lottie-splash-screen';
+import Alert from './src/components/customs/Alert';
+
 const App: FunctionComponent = () => {
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const App: FunctionComponent = () => {
       <ThemeContext>
         <GestureHandlerRootView style={{flex: 1}}>
           {/* ALERT */}
-
+        <Alert />
           {/* LOADING API */}
 
           {/* MAIN APP */}

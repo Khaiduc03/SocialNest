@@ -1,21 +1,25 @@
 import { StyleSheet } from 'react-native';
+import { Device } from '../../../utils';
+import { makeStyles } from '@rneui/themed';
 
-import { Device } from '@/utils';
+
 
 const PADDING = 40;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({colors}) => ({
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.10)',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 1000,
+        zIndex: 3000,
     },
     container: {
-        width: Device.getDeviceWidth() - PADDING * 2,
+        width: Device.getDeviceWidth() - PADDING * 3,
+        height: Device.getDeviceHeight() / 3,
         borderRadius: 20,
-        backgroundColor: 'rgba(256, 256, 256, 0.9)',
+        backgroundColor: colors.background,
+       // backgroundColor: 'rgba(256, 256, 256, 2)',
     },
     titleStyle: {
         fontSize: 18,
@@ -60,6 +64,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#18A0FB',
     },
-});
+}));
 
-export default styles;
+export default useStyles;
