@@ -1,8 +1,7 @@
 import React, {FunctionComponent, useCallback, useEffect} from 'react';
 
 import {Text} from '@rneui/themed';
-import {View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity, View} from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -12,11 +11,10 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import styles from './styles';
-
-import {getAlertState} from '../../../redux/selectors/alert.selector';
-import {AlertActions} from '../../../redux/reducer/alert.reducer';
+import LottieView from 'lottie-react-native';
 import {useAppDispatch, useAppSelector, useBackHandler} from '../../../hooks';
+import {AlertActions} from '../../../redux/reducer/alert.reducer';
+import {getAlertState} from '../../../redux/selectors/alert.selector';
 import useStyles from './styles';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -25,11 +23,14 @@ const Alert: FunctionComponent = () => {
   // hooks
   const styles = useStyles();
   const {
+    imageTitle,
     isShow,
     title,
     description,
     onAccept,
     onCancel = () => {},
+    isAccept,
+    isCancel,
   } = useAppSelector(getAlertState);
 
   const onRequestClose = useCallback(() => {
@@ -89,8 +90,47 @@ const Alert: FunctionComponent = () => {
   return (
     <AnimatedView style={[styles.overlay, overlayStyle]}>
       <AnimatedView style={[styles.container, containerStyle]}>
+        <View style={styles.topContainer}>
+          <LottieView
+            style={styles.lottieView}
+            source={imageTitle}
+            autoPlay
+            loop={false}
+          />
+
+          <Text style={styles.titleStyle}>{`${title} `}</Text>
+          <Text style={styles.descriptionStyle}>{description}</Text>
+        </View>
+        {(isAccept || isCancel) && (
+          <View style={styles.bottomContainer}>
+            {isAccept && (
+              <TouchableOpacity
+                style={styles.buttonOkStyle}
+                onPress={() => {
+                  onRequestClose();
+                  onAccept && onAccept();
+                }}>
+                <Text style={styles.buttonTextStyle}>ok</Text>
+              </TouchableOpacity>
+            )}
+            {isCancel && (
+              <TouchableOpacity
+                style={styles.buttonCancelStyle}
+                onPress={() => {
+                  onRequestClose();
+                  onCancel && onCancel();
+                }}>
+                <Text style={styles.buttonTextStyle}>Cancel</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+        {/*   
+          <View style={styles.buttonOkStyle}></View>
+          <View style={styles.buttonCancelStyle}></View> */}
+
         {/* <Text style={styles.titleStyle}>{`${title} `}</Text>
-        <Text style={styles.descriptionStyle}>{description}</Text>
+       
         <View style={styles.bottomStyle}>
           <TouchableOpacity
             style={styles.buttonStyleCancel}

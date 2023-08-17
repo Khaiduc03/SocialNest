@@ -23,7 +23,8 @@ import {NavigationService} from '../../../navigation';
 import {AuthActions} from '../../../redux/reducer';
 import useStyles from './styles';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import { AlertActions } from '../../../redux/reducer/alert.reducer';
+import {AlertActions} from '../../../redux/reducer/alert.reducer';
+import {images} from '../../../assets';
 
 const SignIn: FunctionComponent = () => {
   const styles = useStyles();
@@ -57,21 +58,23 @@ const SignIn: FunctionComponent = () => {
     );
   };
 
-
-
   const onPress = () => {
     dispatch(
-        AlertActions.setDataAlert({
-            title: 'Logout',
-            description: 'Are you sure you want to logout?',
-            onAccept: () => {
-                console.log('hio')
-            },
-        })
+      AlertActions.setDataAlert({
+        title: 'LOGIN SUCCESS',
+         description: 'Are you sure you want to logout? ',
+        imageTitle: images.cat,
+        isAccept: true,
+        isCancel: true,
+
+        onAccept: () => {
+            console.log('hio')
+        },
+      }),
     );
 
     // dispatch(LoadingActions.showLoading());
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -134,8 +137,7 @@ const SignIn: FunctionComponent = () => {
                   isIonicons
                   onPressButton={() => {
                     onPress();
-                  }
-                  }
+                  }}
                 />
               </View>
               <View style={styles.bottom}>
