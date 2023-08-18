@@ -1,5 +1,6 @@
 import {makeStyles, normalize} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
+import {Device} from '../../../utils';
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
@@ -70,6 +71,9 @@ const useStyles = makeStyles(({colors}) => ({
     flex: 1,
     alignItems: 'flex-end',
     flexDirection: 'row',
+  },
+  errorInput: {
+    borderColor: 'red',
   },
 }));
 export default useStyles;

@@ -30,7 +30,7 @@ const InputCustom: FunctionComponent<
     <TouchableNativeFeedback onPress={() => Keyboard.dismiss()}>
       <Input
         secureTextEntry={props.secure && secure}
-        inputContainerStyle={styles.inputContainer}
+        inputContainerStyle={[styles.inputContainer, props.style]}
         placeholder={props.placeholder}
        // leftIcon={(props.secure && <LockIcon />) || props.leftIcon}
         leftIconContainerStyle={[styles.icon, styles.iconLeft]}
@@ -42,6 +42,7 @@ const InputCustom: FunctionComponent<
         onChangeText={props.onChangeText}
         renderErrorMessage={false}
         placeholderTextColor={styles.placeHolder.color}
+
         {...props}
       />
     </TouchableNativeFeedback>

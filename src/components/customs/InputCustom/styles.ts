@@ -6,10 +6,12 @@ const useStyles = makeStyles(({colors}) => ({
     backgroundColor: colors.white,
     borderRadius: normalize(8),
     borderWidth: 1,
-    elevation: 2,
+   
     width: Device.getDeviceWidth() - normalize(48),
     marginLeft: normalize(-10),
     marginVertical: normalize(12),
+    borderColor: colors.grey4,
+ 
   },
   input: {
     fontSize: normalize(16),

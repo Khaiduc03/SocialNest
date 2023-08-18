@@ -4,12 +4,12 @@
 // dotenv.config();
 
 // //URL
-export const BASE_URL = 'http://192.168.0.104:3000';
+export const BASE_URL = 'https://e69c-2402-800-63a8-b4b3-dd6-2d00-27a2-1424.ngrok-free.app';
 
 export enum Endpoints {
   //AUTH
   LOGIN_ENDPOINT = '/auth/login',
-  CREATE_ACCOUNT_ENDPOINT = '/auth/create-account',
+  CREATE_ACCOUNT_ENDPOINT = '/auth/register',
   REFRESH_TOKEN_ENDPOINT = '/auth/refresh-token',
   SIGN_IN_GOOGLE = '/auth/google-login',
   //USER

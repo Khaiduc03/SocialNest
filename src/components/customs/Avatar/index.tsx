@@ -37,12 +37,11 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
     const background = interpolateColor(
       progress.value,
       [0, 1, 0],
-      ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.6)'],
+      ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 0.6)'],
     );
 
     return {
       backgroundColor: background,
-   
     };
   }, []);
 
@@ -86,12 +85,13 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   }
 
   return (
-    
-    <AnimatedView style={[styles.overlay, overlayStyle]}>
-      <TouchableOpacity onPress={toggleZoom}>
-        <AnimatedView
-          style={[styles.avatarContainer, containerStyle]}>
-             <Avatar
+
+      <AnimatedView style={[styles.overlay, overlayStyle]}>
+
+        
+        <TouchableOpacity onPress={toggleZoom}>
+          <AnimatedView style={[styles.avatarContainer, containerStyle]}>
+            <Avatar
               size={styles.avatarContainer.width}
               rounded
               source={{
@@ -99,8 +99,9 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
               }}
             />
           </AnimatedView>
-      </TouchableOpacity>
-    </AnimatedView>
+        </TouchableOpacity>
+      </AnimatedView>
+
   );
 };
 

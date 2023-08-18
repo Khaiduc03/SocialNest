@@ -5,6 +5,13 @@ export interface PayloadHttpList<T> {
   message?: string;
   data?: T[];
 }
+
+export type ToastType = {
+
+ 
+  text2: string;
+};
+
 export type uuid = {
   _id: string;
 };

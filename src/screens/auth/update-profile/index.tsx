@@ -20,16 +20,12 @@ import useStyles from './styles';
 
 const UpdateProfile: FunctionComponent = () => {
   const styles = useStyles();
-  const [isZoomed, setIsZoomed] = useState(false);
-  const toggleCheckbox = () => setChecked(!checked);
-  const handleAvatarPress = () => {
-    setIsZoomed(!isZoomed);
-  };
-  console.log(isZoomed);
 
 
+  
 
-  const [checked, setChecked] = React.useState<boolean>(false);
+
+  
 
   return (
     <View style={styles.container}>
@@ -51,9 +47,9 @@ const UpdateProfile: FunctionComponent = () => {
               "
             />
 
-            <AvatarComponets onPressAvatar={handleAvatarPress} />
+            <AvatarComponets  />
 
-            {!isZoomed && (
+    
               <View style={styles.formContainer}>
                 <Text style={styles.titleInput}>Full name</Text>
                 <InputCustom
@@ -67,17 +63,15 @@ const UpdateProfile: FunctionComponent = () => {
               
                 />
                 <Text style={styles.titleInput}>Date of Birth</Text>
-                <InputCustom
-                  placeholder="Enter your date of birth"
-                  secure={true}
-               
-                />
-      
+                
+                <Text style={styles.titleInput}>gender</Text>
+
+
                 <View style={styles.bottom}>
                   <BigButton textButton="Sign up" onPressButton={() => {}} />
                 </View>
               </View>
-            )}
+          
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

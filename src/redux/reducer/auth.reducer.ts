@@ -45,7 +45,7 @@ const reducer = createSlice({
     //login google
     handleLoginGoogle: (
       state: AuthState,
-      _: PayloadAction<Omit<LoginPayload, 'password' | 'email'|'idToken'>>,
+      _: PayloadAction<Omit<LoginPayload, 'password' | 'email' | 'idToken'>>,
     ) => {
       return {
         ...state,
@@ -67,7 +67,7 @@ const reducer = createSlice({
     //create account
     handleCreateAccount: (
       state: AuthState,
-      _: PayloadAction<Omit<LoginPayload, 'device_token'>>,
+      _: PayloadAction<Omit<LoginPayload, 'device_token' | 'idToken'>>,
     ) => {
       return {
         ...state,
@@ -75,11 +75,10 @@ const reducer = createSlice({
     },
     handleCreateAccountSuccess: (
       state: AuthState,
-      action: PayloadAction<Partial<AuthState>>,
+      _: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
-        ...action.payload,
       };
     },
     handleCreateAccountFailed: (

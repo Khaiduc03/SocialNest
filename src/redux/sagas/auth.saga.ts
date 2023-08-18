@@ -8,6 +8,13 @@ import {ToastAndroid} from 'react-native';
 
 import {DialogTitle} from '@rneui/base/dist/Dialog/Dialog.Title';
 import {GoogleService} from '../../utils/google';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { ToastType } from '../../types';
+import { NavigationService } from '../../navigation';
+import { routes } from '../../constants';
+import { showToastError, showToastSuccess } from '../../utils';
+
+
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
@@ -40,18 +47,17 @@ function* loginGoogleSaga(
 ): Generator {
   //  yield put(LoadingActions.showLoading());
   try {
-    console.log('hi')
     yield GoogleService.logout();
     const checkLogin = yield GoogleService.checkSignIn();
-    console.log(checkLogin)
+    console.log(checkLogin);
     if (!checkLogin) {
       const {idToken}: any = yield GoogleService.login();
-      console.log(idToken)
+      console.log(idToken);
       const {data}: any = yield call(AuthService.hanleGGLogin, {
         device_token: action.payload.device_token,
         idToken,
       });
-      console.log(data)
+      console.log(data);
       if (data.code === 200) {
         yield put(
           AuthActions.handleLoginSuccess({
@@ -71,6 +77,31 @@ function* loginGoogleSaga(
   }
 }
 
+function* createAccountSaga(
+  action: PayloadAction<Omit<LoginPayload, 'idToken' | 'device_token'>>,
+): Generator {
+try {
+    const {data}: any = yield call(
+      AuthService.handleCreateAccount,
+      action.payload,
+    );
+    if (data.code === 200) {
+      
+      showToastSuccess(data.message);
+      NavigationService.navigate(routes.UPDATE_PROFILE);
+
+    } else {
+      showToastError(data.message);
+      yield call(cleanUser);
+    }
+  }
+  catch (error: any) {
+    console.log(error.message);
+  }
+
+
+}
+
 //clean user
 function* cleanUser(): Generator {
   yield put(
@@ -87,4 +118,5 @@ function* cleanUser(): Generator {
 export default function* watchAuthSaga() {
   yield takeLatest(AuthActions.handleLogin.type, loginSaga);
   yield takeLatest(AuthActions.handleLoginGoogle.type, loginGoogleSaga);
+  yield takeLatest(AuthActions.handleCreateAccount.type, createAccountSaga);
 }

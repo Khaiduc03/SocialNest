@@ -7,7 +7,7 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
     // width:Device.getDeviceWithScreen()
   },
   pencilStyle: {
