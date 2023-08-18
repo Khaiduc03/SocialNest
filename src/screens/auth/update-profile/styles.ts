@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 const useStyles = makeStyles(({colors}) => ({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
   },
   wrapper: {
     ...StyleSheet.absoluteFillObject,

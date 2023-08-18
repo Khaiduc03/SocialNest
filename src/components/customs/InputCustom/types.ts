@@ -4,7 +4,7 @@ import { ViewProps } from 'react-native';
 export type InputProps = {
   placeholder?: string;
   leftIcon?: ReactElement;
-  rightIcon?: ReactElement;
+  rightIcon?: ReactElement ;
   secure?: boolean;
   style?: ViewProps['style'];
 };

@@ -1,36 +1,60 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 
+import DatePicker from '@react-native-community/datetimepicker';
 import {Text} from '@rneui/base';
+import {Icon} from '@rneui/themed';
 import {
   Keyboard,
   KeyboardAvoidingView,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-
-import {CheckBox} from '@rneui/themed';
 import {AuthHeader, BigButton, InputCustom} from '../../../components';
 import Header from '../../../components/customs/Headers';
 import {routes} from '../../../constants';
 import {NavigationService} from '../../../navigation';
 
+import {format, isValid} from 'date-fns';
 import AvatarComponets from '../../../components/customs/Avatar';
 import useStyles from './styles';
 
 const UpdateProfile: FunctionComponent = () => {
   const styles = useStyles();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
+  const [credentials, setCredentials] = React.useState<{
+    fullname: string;
+    phone_number: string;
+    dob: string;
+    gender: string;
+  }>({
+    fullname: '',
+    phone_number: '',
+    dob: '',
+    gender: '',
+  });
+  const handleDatePickerPress = () => {
+    setShowDatePicker(true);
+  };
 
-  
-
-
-  
+  const handleDateChange = (event: any, selected: Date | undefined) => {
+    if (selected) {
+      setShowDatePicker(false);
+      setSelectedDate(selected);
+      setCredentials({
+        ...credentials,
+        dob: format(selected, 'dd/MM/yyyy'), // Định dạng ngày tháng
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView style={styles.wrapper}>
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView style={styles.wrapper}  >
+        <TouchableWithoutFeedback
+          style={styles.wrapper}
+          onPress={() => Keyboard.dismiss()}>
           <View style={styles.body}>
             <Header
               leftIcon={true}
@@ -47,31 +71,58 @@ const UpdateProfile: FunctionComponent = () => {
               "
             />
 
-            <AvatarComponets  />
+            <AvatarComponets />
 
-    
-              <View style={styles.formContainer}>
-                <Text style={styles.titleInput}>Full name</Text>
-                <InputCustom
-                  placeholder="Enter your full name"
-              
+            <View style={styles.formContainer}>
+              <Text style={styles.titleInput}>Full name</Text>
+              <InputCustom
+                placeholder="Enter your full name"
+                value={credentials.fullname}
+                onChangeText={text =>
+                  setCredentials({...credentials, fullname: text})
+                }
+              />
+              <Text style={styles.titleInput}>Phone number</Text>
+              <InputCustom
+                placeholder="Enter your phone number"
+                value={credentials.phone_number}
+                onChangeText={text =>
+                  setCredentials({...credentials, phone_number: text})
+                }
+              />
+              <Text style={styles.titleInput}>Date of Birth</Text>
+              <InputCustom
+                placeholder="dd/MM/yy"
+                rightIcon={
+                  <Icon
+                    type="ionicon"
+                    name={'calendar-outline'}
+                    color={'black'}
+                    size={24}
+                    onPress={() => {
+                      handleDatePickerPress();
+                    }}
+                  />
+                }
+                value={credentials.dob}
+                onChangeText={text =>
+                  setCredentials({...credentials, dob: text})
+                }
+              />
+              {showDatePicker && (
+                <DatePicker
+                  value={selectedDate}
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
                 />
-                <Text style={styles.titleInput}>Phone number</Text>
-                <InputCustom
-                  placeholder="Enter your phone number"
-                  secure={true}
-              
-                />
-                <Text style={styles.titleInput}>Date of Birth</Text>
-                
-                <Text style={styles.titleInput}>gender</Text>
+              )}
 
-
-                <View style={styles.bottom}>
-                  <BigButton textButton="Sign up" onPressButton={() => {}} />
-                </View>
+              <Text style={styles.titleInput}>gender</Text>
+              <View style={styles.bottom}>
+                <BigButton textButton="Sign up" onPressButton={() => {}} />
               </View>
-          
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

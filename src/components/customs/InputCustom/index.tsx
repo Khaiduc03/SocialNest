@@ -42,6 +42,7 @@ const InputCustom: FunctionComponent<
         onChangeText={props.onChangeText}
         renderErrorMessage={false}
         placeholderTextColor={styles.placeHolder.color}
+        
 
         {...props}
       />
