@@ -125,30 +125,6 @@ const Alert: FunctionComponent = () => {
             )}
           </View>
         )}
-        {/*   
-          <View style={styles.buttonOkStyle}></View>
-          <View style={styles.buttonCancelStyle}></View> */}
-
-        {/* <Text style={styles.titleStyle}>{`${title} `}</Text>
-       
-        <View style={styles.bottomStyle}>
-          <TouchableOpacity
-            style={styles.buttonStyleCancel}
-            onPress={() => {
-              onRequestClose();
-              onCancel && onCancel();
-            }}>
-            <Text style={styles.textOption}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonStyleOk}
-            onPress={() => {
-              onRequestClose();
-              onAccept && onAccept();
-            }}>
-            <Text style={styles.textOption}>Ok</Text>
-          </TouchableOpacity>
-        </View> */}
       </AnimatedView>
     </AnimatedView>
   );

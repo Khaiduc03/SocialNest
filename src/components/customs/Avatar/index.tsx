@@ -1,48 +1,78 @@
 import {Avatar} from '@rneui/themed';
-import React, {useState} from 'react';
-import {View, TouchableOpacity, Animated} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import useStyles from './styles';
-import {Device} from '../../../utils';
 import {AvatarProps} from './type';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   const styles = useStyles();
   const [isZoomed, setIsZoomed] = useState(false);
-  const [scale, setScale] = useState(new Animated.Value(1));
-  const handleAvatarPress = () => {
+
+  const toggleZoom = () => setIsZoomed(!isZoomed);
+
+  // animation
+  const progress = useSharedValue(0.5);
+
+  // when is show changed => run animation and reverse animation
+  useEffect(() => {
     if (isZoomed) {
-      setScale(new Animated.Value(1));
+      progress.value = withSpring(1);
     } else {
-      setScale(new Animated.Value(3));
+      progress.value = withSpring(0.5);
     }
-    setIsZoomed(!isZoomed);
-    nextPress();
-  };
+  }, [isZoomed]);
 
-  const animatedStyle = {
-    transform: [{scale: scale}],
-  };
-  const nextPress = () => {
-    if (props.onPressAvatar) {
-      props.onPressAvatar();
-     // console.log(   props.onPressAvatar())
-    }
-  };
+  // when animation run => update overlayStyle
+  const overlayStyle = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1, 0],
+      ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.6)'],
+    );
 
-  return (
-    <View style={styles.container}>
-      {!isZoomed ? (
+    return {
+      backgroundColor: background,
+   
+    };
+  }, []);
+
+  // when animation run => update containerStyle
+  const containerStyle = useAnimatedStyle(() => {
+    const scale = interpolate(
+      progress.value,
+      [0, 1, 0],
+      [0.3, 1, 0.3],
+      Extrapolate.CLAMP,
+    );
+
+    return {
+      transform: [{scale: scale}],
+    };
+  }, []);
+
+  // if isShow = false => not show anything
+  if (!isZoomed) {
+    return (
+      <View style={styles.container}>
         <View>
-          <TouchableOpacity onPress={handleAvatarPress}>
-            <Animated.View style={[animatedStyle]}>
-              <Avatar
-                size={70}
-                rounded
-                source={{
-                  uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
-                }}
-              />
-            </Animated.View>
+          <TouchableOpacity onPress={toggleZoom}>
+            <Avatar
+              size={70}
+              rounded
+              source={{
+                uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
+              }}
+            />
           </TouchableOpacity>
           <Avatar
             size={24}
@@ -51,22 +81,26 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
             containerStyle={styles.pencilStyle}
           />
         </View>
-      ) : (
-        <TouchableOpacity onPress={handleAvatarPress}>
-          <View>
-            <Animated.View style={[animatedStyle, styles.avatarContainer]}>
-              <Avatar
-                size={Device.getDeviceWithScreen() * 0.334}
-                rounded
-                source={{
-                  uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
-                }}
-              />
-            </Animated.View>
-          </View>
-        </TouchableOpacity>
-      )}
-    </View>
+      </View>
+    );
+  }
+
+  return (
+    
+    <AnimatedView style={[styles.overlay, overlayStyle]}>
+      <TouchableOpacity onPress={toggleZoom}>
+        <AnimatedView
+          style={[styles.avatarContainer, containerStyle]}>
+             <Avatar
+              size={styles.avatarContainer.width}
+              rounded
+              source={{
+                uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
+              }}
+            />
+          </AnimatedView>
+      </TouchableOpacity>
+    </AnimatedView>
   );
 };
 

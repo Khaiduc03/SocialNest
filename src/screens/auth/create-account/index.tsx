@@ -19,11 +19,8 @@ import AvatarComponets from '../../../components/customs/Avatar';
 
 const CreateAccount: FunctionComponent = () => {
   const styles = useStyles();
-  const [isZoomed, setIsZoomed] = useState(false);
+
   const toggleCheckbox = () => setChecked(!checked);
-  const handleAvatarPress = () => {
-    setIsZoomed(!isZoomed);
-  };
 
   const [credentials, setCredentials] = React.useState<{
     email: string;
@@ -56,50 +53,47 @@ const CreateAccount: FunctionComponent = () => {
               title="Create an Account 🔐"
               subTitle="Enter your  username, email & password. If you forget it, then you have to do forgot password."
             />
+            <AvatarComponets />
 
-            <AvatarComponets onPressAvatar={handleAvatarPress} />
-
-            {!isZoomed && (
-              <View style={styles.formContainer}>
-                <Text style={styles.titleInput}>Username</Text>
-                <InputCustom
-                  placeholder="Enter your username"
-                  value={credentials.email}
-                  onChangeText={text =>
-                    setCredentials({...credentials, email: text})
-                  }
+            <View style={styles.formContainer}>
+              <Text style={styles.titleInput}>Username</Text>
+              <InputCustom
+                placeholder="Enter your username"
+                value={credentials.email}
+                onChangeText={text =>
+                  setCredentials({...credentials, email: text})
+                }
+              />
+              <Text style={styles.titleInput}>Password</Text>
+              <InputCustom
+                placeholder="Enter your password"
+                secure={true}
+                value={credentials.password}
+                onChangeText={text =>
+                  setCredentials({...credentials, password: text})
+                }
+              />
+              <Text style={styles.titleInput}>Confirm Password</Text>
+              <InputCustom
+                placeholder="Enter your password"
+                secure={true}
+                value={credentials.password}
+                onChangeText={text =>
+                  setCredentials({...credentials, password: text})
+                }
+              />
+              <View style={styles.checkbox}>
+                <CheckBox
+                  checked={checked}
+                  textStyle={styles.textCheckbox}
+                  onPress={toggleCheckbox}
+                  title={'Remember me'}
                 />
-                <Text style={styles.titleInput}>Password</Text>
-                <InputCustom
-                  placeholder="Enter your password"
-                  secure={true}
-                  value={credentials.password}
-                  onChangeText={text =>
-                    setCredentials({...credentials, password: text})
-                  }
-                />
-                <Text style={styles.titleInput}>Confirm Password</Text>
-                <InputCustom
-                  placeholder="Enter your password"
-                  secure={true}
-                  value={credentials.password}
-                  onChangeText={text =>
-                    setCredentials({...credentials, password: text})
-                  }
-                />
-                <View style={styles.checkbox}>
-                  <CheckBox
-                    checked={checked}
-                    textStyle={styles.textCheckbox}
-                    onPress={toggleCheckbox}
-                    title={'Remember me'}
-                  />
-                </View>
-                <View style={styles.bottom}>
-                  <BigButton textButton="Sign up" onPressButton={() => {}} />
-                </View>
               </View>
-            )}
+              <View style={styles.bottom}>
+                <BigButton textButton="Sign up" onPressButton={() => {}} />
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

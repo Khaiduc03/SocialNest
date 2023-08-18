@@ -1,12 +1,13 @@
 import {normalize, makeStyles} from '@rneui/themed';
 import {Device} from '../../../utils';
-
+import {StyleSheet} from 'react-native';
+const PADDING = 40;
 Device.getDeviceWidth();
 const useStyles = makeStyles(({colors}) => ({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
     // width:Device.getDeviceWithScreen()
   },
   pencilStyle: {
@@ -17,14 +18,23 @@ const useStyles = makeStyles(({colors}) => ({
   },
 
   avatarContainer: {
-    // Thêm các style cần thiết cho container avatar
-    justifyContent: 'center', // Căn giữa theo chiều dọc
-    alignItems: 'center', // Căn giữa theo chiều ngang
-    backgroundColor: colors.black,
-    width:Device.getDeviceWithScreen(),
-    height:Device.getDeviceWithScreen(),
-  
-   // position:'absolute'
+    width: Device.getDeviceWidth() - PADDING ,
+    height: Device.getDeviceWidth() - PADDING,
+
+    // backgroundColor: colors.primary,
+    backgroundColor: 'rgba(256, 256, 256, 1)',
+    alignItems: 'center',
+    borderRadius:1000
+
+    // position:'absolute'
+  },
+
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 3000,
   },
 }));
 
