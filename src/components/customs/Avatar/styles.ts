@@ -18,13 +18,13 @@ const useStyles = makeStyles(({colors}) => ({
   },
 
   avatarContainer: {
-    width: Device.getDeviceWidth() - PADDING ,
+    width: Device.getDeviceWidth() - PADDING,
     height: Device.getDeviceWidth() - PADDING,
 
     // backgroundColor: colors.primary,
     backgroundColor: 'rgba(256, 256, 256, 1)',
     alignItems: 'center',
-    borderRadius:1000
+    borderRadius: 1000,
 
     // position:'absolute'
   },
@@ -35,6 +35,30 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 3000,
+  },
+  contentStyle: {
+    borderTopEndRadius: normalize(20),
+    borderTopStartRadius: normalize(20),
+    paddingTop: normalize(16),
+  },
+  modalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+
+    paddingHorizontal: normalize(24),
+    paddingVertical: normalize(16),
+  },
+  textStyle: {
+    fontSize: normalize(16),
+    marginLeft: normalize(12),
+    color: colors.black,
+    fontFamily: 'Urbanist-Bold',
+  },
+  iconStyle: {
+    backgroundColor: colors.grey5,
+    padding: normalize(8),
+    borderRadius: normalize(1000),
   },
 }));
 

@@ -1,4 +1,4 @@
-import {Avatar} from '@rneui/themed';
+import {Avatar, Icon, Text} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import useStyles from './styles';
@@ -11,6 +11,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import ModalWrapContent from '../ModalWrapContent';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -59,6 +60,10 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
     };
   }, []);
 
+  //show menu choose image
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const toggleShow = () => setIsShow(!isShow);
+
   // if isShow = false => not show anything
   if (!isZoomed) {
     return (
@@ -73,35 +78,72 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
               }}
             />
           </TouchableOpacity>
-          <Avatar
-            size={24}
-            rounded
-            icon={{name: 'pencil', type: 'font-awesome'}}
-            containerStyle={styles.pencilStyle}
-          />
+          <TouchableOpacity onPress={toggleShow}>
+            <Avatar
+              size={24}
+              rounded
+              icon={{name: 'pencil', type: 'font-awesome'}}
+              containerStyle={styles.pencilStyle}
+            />
+            {isShow && (
+              <ModalWrapContent
+                isVisible={isShow}
+                onBackdropPress={() => setIsShow(false)}
+                contentStyle={styles.contentStyle}>
+                <TouchableOpacity style={styles.modalItem}>
+                  <Icon
+                    type="ionicon"
+                    name={'camera-outline'}
+                    color={'black'}
+                    size={28}
+                    containerStyle={styles.iconStyle}
+                  />
+                  <Text style={styles.textStyle}>Take a photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalItem}>
+                  <Icon
+                    type="ionicon"
+                    name={'images-outline'}
+                    color={'black'}
+                    size={28}
+                    containerStyle={styles.iconStyle}
+                  />
+                  <Text style={styles.textStyle}>Select a photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalItem}>
+                  <Icon
+                    type="ionicon"
+                    name={'trash-outline'}
+                    color={'black'}
+                    size={28}
+                    containerStyle={styles.iconStyle}
+                  />
+                  <Text style={styles.textStyle}>Remove photo</Text>
+                </TouchableOpacity>
+                
+                
+              </ModalWrapContent>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 
   return (
-
-      <AnimatedView style={[styles.overlay, overlayStyle]}>
-
-        
-        <TouchableOpacity onPress={toggleZoom}>
-          <AnimatedView style={[styles.avatarContainer, containerStyle]}>
-            <Avatar
-              size={styles.avatarContainer.width}
-              rounded
-              source={{
-                uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
-              }}
-            />
-          </AnimatedView>
-        </TouchableOpacity>
-      </AnimatedView>
-
+    <AnimatedView style={[styles.overlay, overlayStyle]}>
+      <TouchableOpacity onPress={toggleZoom}>
+        <AnimatedView style={[styles.avatarContainer, containerStyle]}>
+          <Avatar
+            size={styles.avatarContainer.width}
+            rounded
+            source={{
+              uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
+            }}
+          />
+        </AnimatedView>
+      </TouchableOpacity>
+    </AnimatedView>
   );
 };
 
