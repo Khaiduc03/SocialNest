@@ -12,7 +12,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import ModalWrapContent from '../ModalWrapContent';
-
+import * as ImagePicker from 'react-native-image-picker';
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
@@ -63,6 +63,19 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   //show menu choose image
   const [isShow, setIsShow] = useState<boolean>(false);
   const toggleShow = () => setIsShow(!isShow);
+  //image picker
+  const [response, setResponse] = React.useState<any>(null);
+
+  const onButtonPress = React.useCallback((type: string, options: any) => {
+    if (type === 'capture') {
+      ImagePicker.launchCamera(options, setResponse);
+      console.log(response)
+    } else {
+      ImagePicker.launchImageLibrary(options, setResponse);
+    }
+  }, []);
+
+  
 
   // if isShow = false => not show anything
   if (!isZoomed) {
@@ -90,7 +103,19 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
                 isVisible={isShow}
                 onBackdropPress={() => setIsShow(false)}
                 contentStyle={styles.contentStyle}>
-                <TouchableOpacity style={styles.modalItem}>
+                <TouchableOpacity
+                  style={styles.modalItem}
+                  onPress={() =>
+                    onButtonPress(
+                      'capture',
+                      ImagePicker.launchCamera({
+                        saveToPhotos: true,
+                        mediaType: 'photo',
+                        includeBase64: false,
+                        quality: 0.5,
+                      }),
+                    )
+                  }>
                   <Icon
                     type="ionicon"
                     name={'camera-outline'}
@@ -120,8 +145,6 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
                   />
                   <Text style={styles.textStyle}>Remove photo</Text>
                 </TouchableOpacity>
-                
-                
               </ModalWrapContent>
             )}
           </TouchableOpacity>

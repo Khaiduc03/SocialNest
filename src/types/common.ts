@@ -1,5 +1,7 @@
 import {FunctionComponent} from 'react';
 import {routes} from '../constants';
+import * as ImagePicker from 'react-native-image-picker';
+
 export interface PayloadHttpList<T> {
   code?: number;
   message?: string;
@@ -68,3 +70,9 @@ export type Onboard = {
   subtitle: string;
   image: any;
 };
+
+interface Action {
+  title: string;
+  type: 'capture' | 'library';
+  options: ImagePicker.CameraOptions | ImagePicker.ImageLibraryOptions;
+}
