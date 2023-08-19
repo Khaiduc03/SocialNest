@@ -1,8 +1,8 @@
 import {Avatar, Icon, Text} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import useStyles from './styles';
-import {AvatarProps} from './type';
+import {Platform, TouchableOpacity, View} from 'react-native';
+import * as ImagePicker from 'react-native-image-picker';
+import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -11,14 +11,17 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import {PERMISSION_TYPE, usePermission} from '../../../hooks';
+import {showToastError} from '../../../utils';
 import ModalWrapContent from '../ModalWrapContent';
-import * as ImagePicker from 'react-native-image-picker';
+import useStyles from './styles';
+import {AvatarProps} from './type';
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   const styles = useStyles();
   const [isZoomed, setIsZoomed] = useState(false);
-
+  const permission = usePermission();
   const toggleZoom = () => setIsZoomed(!isZoomed);
 
   // animation
@@ -64,18 +67,73 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const toggleShow = () => setIsShow(!isShow);
   //image picker
-  const [response, setResponse] = React.useState<any>(null);
+  const [captureImage, setCaptureImage] = React.useState<ImagePicker.Asset[]>([
+    {},
+  ]);
 
-  const onButtonPress = React.useCallback((type: string, options: any) => {
-    if (type === 'capture') {
-      ImagePicker.launchCamera(options, setResponse);
-      console.log(response)
-    } else {
-      ImagePicker.launchImageLibrary(options, setResponse);
-    }
-  }, []);
+  const optionsCamera: ImagePicker.CameraOptions = {
+    quality: 1,
+    mediaType: 'photo',
+    cameraType: 'front',
+    saveToPhotos: true,
+  };
+  const optionLibrary: ImagePicker.ImageLibraryOptions = {
+    mediaType: 'photo',
+    quality: 1,
+    selectionLimit: 0,
+    maxWidth: 500,
+    maxHeight: 500,
+  };
 
-  
+  const showCamera = async () => {
+    setIsShow(false);
+    request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA,
+    ).then(async result => {
+      if (result !== RESULTS.GRANTED && result !== RESULTS.UNAVAILABLE) {
+        await permission.showPermissionDialog(PERMISSION_TYPE.camera);
+      } else {
+        const result = await ImagePicker.launchCamera(optionsCamera);
+        if (result.errorCode) {
+          showToastError(result.errorMessage + '');
+        } else if (result.didCancel) {
+          showToastError('Bạn chưa chụp ảnh');
+        } else if (result.errorMessage) {
+          showToastError('Có lỗi xảy ra khi mở camera');
+        } else if (result.assets) {
+          setCaptureImage(result.assets);
+        }
+      }
+    });
+    setIsShow(false);
+  };
+
+  const showGallery = async () => {
+    setIsShow(false);
+    request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.PHOTO_LIBRARY
+        : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+    ).then(async result => {
+      if (result !== RESULTS.GRANTED && result !== RESULTS.UNAVAILABLE) {
+        await permission.showPermissionDialog(PERMISSION_TYPE.library);
+      } else {
+        const result = await ImagePicker.launchImageLibrary(optionLibrary);
+        if (result.errorCode) {
+          showToastError('Có lỗi xảy ra khi mở thư viện');
+        } else if (result.didCancel) {
+          showToastError('Bạn chưa chọn ảnh');
+        } else if (result.errorMessage) {
+          showToastError('Có lỗi xảy ra khi mở thư viện');
+        } else if (result.assets) {
+          setCaptureImage(result.assets);
+        }
+      }
+    });
+    setIsShow(false);
+  };
 
   // if isShow = false => not show anything
   if (!isZoomed) {
@@ -87,7 +145,9 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
               size={70}
               rounded
               source={{
-                uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
+                uri:
+                  captureImage[0].uri ||
+                  'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
               }}
             />
           </TouchableOpacity>
@@ -105,17 +165,7 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
                 contentStyle={styles.contentStyle}>
                 <TouchableOpacity
                   style={styles.modalItem}
-                  onPress={() =>
-                    onButtonPress(
-                      'capture',
-                      ImagePicker.launchCamera({
-                        saveToPhotos: true,
-                        mediaType: 'photo',
-                        includeBase64: false,
-                        quality: 0.5,
-                      }),
-                    )
-                  }>
+                  onPress={() => showCamera()}>
                   <Icon
                     type="ionicon"
                     name={'camera-outline'}
@@ -125,7 +175,9 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
                   />
                   <Text style={styles.textStyle}>Take a photo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalItem}>
+                <TouchableOpacity
+                  style={styles.modalItem}
+                  onPress={() => showGallery()}>
                   <Icon
                     type="ionicon"
                     name={'images-outline'}
