@@ -1,5 +1,6 @@
-import {makeStyles, normalize} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
+import { makeStyles, normalize } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
+import { Device } from '../../../utils';
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
@@ -9,11 +10,16 @@ const useStyles = makeStyles(({colors}) => ({
   wrapper: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.background,
+
   },
 
   body: {
     flex: 1,
     padding: normalize(24),
+    alignContent: 'center',
+    justifyContent: 'center',
+   
+    height:Device.getDeviceHeight()
   },
   formContainer: {
     flex: 1,
@@ -68,9 +74,22 @@ const useStyles = makeStyles(({colors}) => ({
     borderWidth: 1,
   },
   bottom: {
-    flex: 1,
-    alignItems: 'flex-end',
-    flexDirection: 'row',
+  flex: 1,
+
+   justifyContent: 'flex-end',
+    marginBottom: normalize(36),
   },
+  checkBoxContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  
+  },
+  checkBoxItem:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+  }
 }));
 export default useStyles;

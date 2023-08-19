@@ -2,10 +2,12 @@ import React, {FunctionComponent, useState} from 'react';
 
 import DatePicker from '@react-native-community/datetimepicker';
 import {Text} from '@rneui/base';
-import {Icon} from '@rneui/themed';
+import {CheckBox, Icon} from '@rneui/themed';
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -14,8 +16,9 @@ import Header from '../../../components/customs/Headers';
 import {routes} from '../../../constants';
 import {NavigationService} from '../../../navigation';
 
-import {format, isValid} from 'date-fns';
+import {format} from 'date-fns';
 import AvatarComponets from '../../../components/customs/Avatar';
+import {Gender} from '../../../types';
 import useStyles from './styles';
 
 const UpdateProfile: FunctionComponent = () => {
@@ -27,12 +30,12 @@ const UpdateProfile: FunctionComponent = () => {
     fullname: string;
     phone_number: string;
     dob: string;
-    gender: string;
+    gender: Gender;
   }>({
     fullname: '',
     phone_number: '',
     dob: '',
-    gender: '',
+    gender: Gender.MALE,
   });
   const handleDatePickerPress = () => {
     setShowDatePicker(true);
@@ -50,8 +53,11 @@ const UpdateProfile: FunctionComponent = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView style={styles.wrapper}  >
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -150}>
+      <ScrollView style={styles.container}>
         <TouchableWithoutFeedback
           style={styles.wrapper}
           onPress={() => Keyboard.dismiss()}>
@@ -90,6 +96,7 @@ const UpdateProfile: FunctionComponent = () => {
                   setCredentials({...credentials, phone_number: text})
                 }
               />
+
               <Text style={styles.titleInput}>Date of Birth</Text>
               <InputCustom
                 placeholder="dd/MM/yy"
@@ -119,14 +126,38 @@ const UpdateProfile: FunctionComponent = () => {
               )}
 
               <Text style={styles.titleInput}>gender</Text>
-              <View style={styles.bottom}>
-                <BigButton textButton="Sign up" onPressButton={() => {}} />
+              <View style={styles.checkBoxContainer}>
+                <View style={styles.checkBoxItem}>
+                  <CheckBox
+                    checked={credentials.gender === Gender.MALE}
+                    onPress={() =>
+                      setCredentials({...credentials, gender: Gender.MALE})
+                    }
+                    checkedIcon="dot-circle-o"
+                    uncheckedIcon="circle-o"
+                  />
+                  <Text>Male</Text>
+                </View>
+                <View style={styles.checkBoxItem}>
+                  <CheckBox
+                    checked={credentials.gender === Gender.FAMALE}
+                    onPress={() =>
+                      setCredentials({...credentials, gender: Gender.FAMALE})
+                    }
+                    checkedIcon="dot-circle-o"
+                    uncheckedIcon="circle-o"
+                  />
+                  <Text>Famale</Text>
+                </View>
               </View>
+            </View>
+            <View style={styles.bottom}>
+              <BigButton textButton="Sign up" onPressButton={() => {}} />
             </View>
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -7,8 +7,6 @@ export interface PayloadHttpList<T> {
 }
 
 export type ToastType = {
-
- 
   text2: string;
 };
 
@@ -57,6 +55,11 @@ export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
   VIP = 'VIP',
+}
+
+export enum Gender {
+  FAMALE = 'FAMALE',
+  MALE = 'MALE',
 }
 
 export type Onboard = {
