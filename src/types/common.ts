@@ -13,7 +13,7 @@ export type ToastType = {
 };
 
 export type uuid = {
-  _id: string;
+  uuid: string;
 };
 
 export type Timestamp = {

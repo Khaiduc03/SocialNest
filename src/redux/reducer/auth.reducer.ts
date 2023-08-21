@@ -1,10 +1,9 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {AuthState, LoginPayload, RefreshToken, User} from '../types';
-import {Redux} from '../types/redux.type';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { AuthState, LoginPayload, RefreshToken, User } from '../types';
+import { Redux } from '../types/redux.type';
 
 const initialState: AuthState = {
   enableSignIn: false,
-  enableBiometric: false,
   accessToken: '',
   refreshToken: '',
   user: {},
@@ -19,20 +18,9 @@ const reducer = createSlice({
       state: AuthState,
       _: PayloadAction<Partial<LoginPayload>>,
     ) => {
-      return {
-        ...state,
-      };
+      return state;
     },
     handleLoginSuccess: (
-      state: AuthState,
-      action: PayloadAction<Partial<AuthState>>,
-    ) => {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    },
-    handleLoginFailed: (
       state: AuthState,
       action: PayloadAction<Partial<AuthState>>,
     ) => {
@@ -45,7 +33,7 @@ const reducer = createSlice({
     //login google
     handleLoginGoogle: (
       state: AuthState,
-      _: PayloadAction<Omit<LoginPayload, 'password' | 'email' | 'idToken'>>,
+      _: PayloadAction<Pick<LoginPayload,  'device_token'>>,
     ) => {
       return {
         ...state,
@@ -59,7 +47,7 @@ const reducer = createSlice({
         accessToken: '',
         refreshToken: '',
         enableBiometric: false,
-        user: Object.assign(initialState.user),
+        user: {},
         isGoogle: false,
       };
     },
@@ -69,16 +57,15 @@ const reducer = createSlice({
       state: AuthState,
       _: PayloadAction<Omit<LoginPayload, 'device_token' | 'idToken'>>,
     ) => {
-      return {
-        ...state,
-      };
+      return state;
     },
     handleCreateAccountSuccess: (
       state: AuthState,
-      _: PayloadAction<Partial<AuthState>>,
+      action: PayloadAction<Partial<AuthState>>,
     ) => {
       return {
         ...state,
+        ...action.payload,
       };
     },
     handleCreateAccountFailed: (
@@ -116,12 +103,6 @@ const reducer = createSlice({
       };
     },
 
-    toggleBiometric: (state: AuthState) => {
-      return {
-        ...state,
-        enableBiometric: !state.enableBiometric,
-      };
-    },
     refreshToken: (state: AuthState, action: PayloadAction<RefreshToken>) => {
       return {
         ...state,
@@ -130,11 +111,26 @@ const reducer = createSlice({
       };
     },
     //update user
-    updateUserAvatar: (state: AuthState, _: PayloadAction<FormData>) => {
+    handleUpdateAvatar: (state: AuthState, _: PayloadAction<FormData>) => {
       return {
         ...state,
       };
     },
+    handleUpdateAvatarSuccess: (
+      state: AuthState,
+      action: PayloadAction<Partial<User>>,
+    ) => {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };
+    },
+
+
+
     updateUserProfile: (
       state: AuthState,
       _: PayloadAction<

@@ -4,6 +4,7 @@ import {Text} from '@rneui/base';
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -33,9 +34,9 @@ const SignIn: FunctionComponent = () => {
     Toast.show({
       type: 'success',
       text1: 'Hello',
-      text2: 'This is some something 👋'
+      text2: 'This is some something 👋',
     });
-  }
+  };
 
   const toggleCheckbox = () => setChecked(!checked);
 
@@ -63,13 +64,13 @@ const SignIn: FunctionComponent = () => {
     dispatch(
       AlertActions.setDataAlert({
         title: 'LOGIN SUCCESS',
-         description: 'Are you sure you want to logout? ',
+        description: 'Are you sure you want to logout? ',
         imageTitle: images.cat,
         isAccept: true,
         isCancel: true,
 
         onAccept: () => {
-            console.log('hio')
+          console.log('hio');
         },
       }),
     );
@@ -78,82 +79,85 @@ const SignIn: FunctionComponent = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView style={styles.wrapper}>
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={styles.body}>
-            <Header
-              leftIcon={true}
-              onPressLeftIcon={() => {
-                Keyboard.dismiss();
-                if (NavigationService.canGoBack()) {
-                  NavigationService.goBack();
-                  return;
-                }
-                NavigationService.navigate(routes.LOBBY);
-              }}
-            />
-            <AuthHeader
-              title="Login 🔐"
-              subTitle="Please enter your email and password to sign in."
-            />
+    <KeyboardAvoidingView
+      style={styles.wrapper}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -250}
+      >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.body}>
+          <Header
+            leftIcon={true}
+            onPressLeftIcon={() => {
+              Keyboard.dismiss();
+              if (NavigationService.canGoBack()) {
+                NavigationService.goBack();
+                return;
+              }
+              NavigationService.navigate(routes.LOBBY);
+            }}
+          />
+          <AuthHeader
+            title="Login 🔐"
+            subTitle="Please enter your email and password to sign in."
+          />
 
-            <View style={styles.formContainer}>
-              <Text style={styles.titleInput}>email</Text>
-              <InputCustom
-                placeholder="Enter your email"
-                value={credentials.email}
-                onChangeText={text =>
-                  setCredentials({...credentials, email: text})
-                }
+          <View style={styles.formContainer}>
+            <Text style={styles.titleInput}>email</Text>
+            <InputCustom
+              placeholder="Enter your email"
+              value={credentials.email}
+              onChangeText={text =>
+                setCredentials({...credentials, email: text})
+              }
+            />
+            <Text style={styles.titleInput}>Password</Text>
+            <InputCustom
+              placeholder="Enter your password"
+              secure={true}
+              value={credentials.password}
+              onChangeText={text =>
+                setCredentials({...credentials, password: text})
+              }
+            />
+            <View style={styles.checkbox}>
+              <CheckBox
+                checked={checked}
+                textStyle={styles.textCheckbox}
+                onPress={toggleCheckbox}
+                title={'Remember me'}
               />
-              <Text style={styles.titleInput}>Password</Text>
-              <InputCustom
-                placeholder="Enter your password"
-                secure={true}
-                value={credentials.password}
-                onChangeText={text =>
-                  setCredentials({...credentials, password: text})
-                }
+            </View>
+            <View style={styles.textView}>
+              <Text style={[styles.titleInput, styles.color]}>
+                Forgot Password
+              </Text>
+              <Text style={styles.textNor}>or continue with</Text>
+            </View>
+            <View style={styles.optionView}>
+              <SmallButton svgIcon={<GoogleIcon />} nameIcon="" />
+              <SmallButton
+                nameIcon="logo-facebook"
+                typeIcon="ionicon"
+                isIonicons
+                onPressButton={() => {
+                  showToast();
+                }}
               />
-              <View style={styles.checkbox}>
-                <CheckBox
-                  checked={checked}
-                  textStyle={styles.textCheckbox}
-                  onPress={toggleCheckbox}
-                  title={'Remember me'}
-                />
-              </View>
-              <View style={styles.textView}>
-                <Text style={[styles.titleInput, styles.color]}>
-                  Forgot Password
-                </Text>
-                <Text style={styles.textNor}>or continue with</Text>
-              </View>
-              <View style={styles.optionView}>
-                <SmallButton svgIcon={<GoogleIcon />} nameIcon="" />
-                <SmallButton
-                  nameIcon="logo-facebook"
-                  typeIcon="ionicon"
-                  isIonicons
-                  onPressButton={() => {
-                   showToast()
-                  }}
-                />
-              </View>
-              <View style={styles.bottom}>
-                <BigButton
-                  textButton="Sign In"
-                  onPressButton={() => {
-                    handleSignIn();
-                  }}
-                />
-              </View>
+            </View>
+            <View style={styles.bottom}>
+              <BigButton
+                textButton="Sign In"
+                onPressButton={() => {
+                  handleSignIn();
+                  //NavigationService.navigate(routes.UPDATE_PROFILE);
+                }}
+              />
             </View>
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

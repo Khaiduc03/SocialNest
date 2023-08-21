@@ -1,6 +1,5 @@
-import {makeStyles, normalize} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
-import {Device} from '../../../utils';
+import { makeStyles, normalize } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
 
 const useStyles = makeStyles(({colors}) => ({
   container: {

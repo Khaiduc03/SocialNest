@@ -11,15 +11,26 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {PERMISSION_TYPE, usePermission} from '../../../hooks';
+import {
+  PERMISSION_TYPE,
+  useAppDispatch,
+  useAppSelector,
+  usePermission,
+} from '../../../hooks';
 import {showToastError} from '../../../utils';
 import ModalWrapContent from '../ModalWrapContent';
 import useStyles from './styles';
 import {AvatarProps} from './type';
+import {AuthActions, getAuthUserProfile} from '../../../redux';
+
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
   const styles = useStyles();
+
+  const user = useAppSelector(getAuthUserProfile);
+  const dispatch = useAppDispatch();
+
   const [isZoomed, setIsZoomed] = useState(false);
   const permission = usePermission();
   const toggleZoom = () => setIsZoomed(!isZoomed);
@@ -104,6 +115,7 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
           showToastError('Có lỗi xảy ra khi mở camera');
         } else if (result.assets) {
           setCaptureImage(result.assets);
+          await handleUploadImage();
         }
       }
     });
@@ -122,17 +134,49 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
       } else {
         const result = await ImagePicker.launchImageLibrary(optionLibrary);
         if (result.errorCode) {
-          showToastError('Có lỗi xảy ra khi mở thư viện');
+          showToastError('Have error when open the libary');
         } else if (result.didCancel) {
-          showToastError('Bạn chưa chọn ảnh');
+          showToastError('You was cancel');
         } else if (result.errorMessage) {
-          showToastError('Có lỗi xảy ra khi mở thư viện');
+          showToastError('Something wrong!!');
         } else if (result.assets) {
           setCaptureImage(result.assets);
+          await handleUploadImage();
         }
       }
     });
     setIsShow(false);
+  };
+
+  const formdata = new FormData();
+  // React.useEffect(() => {
+  //   formdata.append('image', {
+  //     uri: captureImage[0].uri,
+  //     name: captureImage[0].fileName,
+  //     type: captureImage[0].type,
+  //   });
+  // }, [captureImage]);
+
+  const handleUploadImage = async () => {
+    // if (captureImage[0]?.uri) {
+    //   dispatch(AuthActions.handleUpdateAvatar(formdata));
+    // }
+    // React.useEffect(() => {
+    //   formdata.append('file', {
+    //     uri: captureImage[0].uri,
+    //     name: captureImage[0].fileName,
+    //     type: captureImage[0].type,
+    //   });
+    // }, [captureImage]);
+    formdata.append('file', {
+      uri: captureImage[0].uri,
+      name: captureImage[0].fileName,
+      type: captureImage[0].type,
+    });
+
+    if (captureImage[0]?.uri) {
+      dispatch(AuthActions.handleUpdateAvatar(formdata));
+    }
   };
 
   // if isShow = false => not show anything
@@ -146,7 +190,7 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
               rounded
               source={{
                 uri:
-                  captureImage[0].uri ||
+                  user.avatar?.url ||
                   'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
               }}
             />
@@ -213,7 +257,9 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
             size={styles.avatarContainer.width}
             rounded
             source={{
-              uri: 'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
+              uri:
+                user.avatar?.url ||
+                'https://res.cloudinary.com/dohynhgvm/image/upload/f_auto,q_auto/cld-sample',
             }}
           />
         </AnimatedView>

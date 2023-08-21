@@ -6,7 +6,7 @@ export type AppStatus = {
 
 export type AuthState = {
   enableSignIn: boolean;
-  enableBiometric: boolean;
+ 
   accessToken: string;
   refreshToken: string;
   user: Partial<User>;

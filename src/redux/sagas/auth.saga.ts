@@ -1,44 +1,49 @@
 /* eslint-disable import/order */
 import {PayloadAction} from '@reduxjs/toolkit';
-import {LoginPayload, User} from '../types';
-import {call, put, takeLatest} from 'redux-saga/effects';
-import {AuthService} from '../services';
-import {AuthActions, LoadingActions} from '../reducer';
 import {ToastAndroid} from 'react-native';
+import {call, put, takeLatest} from 'redux-saga/effects';
+import {AuthActions} from '../reducer';
+import {AuthService, UserService} from '../services';
+import {LoginPayload} from '../types';
 
-import {DialogTitle} from '@rneui/base/dist/Dialog/Dialog.Title';
+import {routes} from '../../constants';
+import {NavigationService} from '../../navigation';
+import {showToastError, showToastSuccess} from '../../utils';
 import {GoogleService} from '../../utils/google';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { ToastType } from '../../types';
-import { NavigationService } from '../../navigation';
-import { routes } from '../../constants';
-import { showToastError, showToastSuccess } from '../../utils';
-
-
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
   try {
     const {data}: any = yield call(AuthService.handleLogin, action.payload);
+
     if (data.code === 200) {
       yield put(
         AuthActions.handleLoginSuccess({
           accessToken: data.data.access_token,
           refreshToken: data.data.refresh_token,
+        }),
+      );
+      yield call(getProfileUserSaga);
+      if (data.data.isUpdate === false) {
+        showToastError('Please update profile to continue');
+        return NavigationService.navigate(routes.UPDATE_PROFILE);
+      }
+      yield put(
+        AuthActions.handleLoginSuccess({
           enableSignIn: true,
         }),
       );
-
-      ToastAndroid.show('Login success', ToastAndroid.SHORT);
+      showToastSuccess(data.message);
+    } else if (data.code === 400) {
+      showToastError(data.message);
     } else {
-      ToastAndroid.show(data.message, ToastAndroid.SHORT);
-      DialogTitle(data.message);
+      showToastError('unstable connection');
       yield call(cleanUser);
     }
   } catch (error: any) {
     console.log(error.message);
   } finally {
-    yield put(LoadingActions.hideLoading());
+    // yield put(LoadingActions.hideLoading());
   }
 }
 
@@ -49,15 +54,14 @@ function* loginGoogleSaga(
   try {
     yield GoogleService.logout();
     const checkLogin = yield GoogleService.checkSignIn();
-    console.log(checkLogin);
     if (!checkLogin) {
       const {idToken}: any = yield GoogleService.login();
-      console.log(idToken);
+
       const {data}: any = yield call(AuthService.hanleGGLogin, {
         device_token: action.payload.device_token,
         idToken,
       });
-      console.log(data);
+
       if (data.code === 200) {
         yield put(
           AuthActions.handleLoginSuccess({
@@ -80,26 +84,72 @@ function* loginGoogleSaga(
 function* createAccountSaga(
   action: PayloadAction<Omit<LoginPayload, 'idToken' | 'device_token'>>,
 ): Generator {
-try {
+  try {
     const {data}: any = yield call(
       AuthService.handleCreateAccount,
       action.payload,
     );
     if (data.code === 200) {
-      
-      showToastSuccess(data.message);
-      NavigationService.navigate(routes.UPDATE_PROFILE);
+      yield put(
+        AuthActions.handleCreateAccountSuccess({
+          accessToken: data.data.access_token,
+          refreshToken: data.data.refresh_token,
+        }),
+      );
 
+      showToastSuccess(data.message);
     } else {
       showToastError(data.message);
       yield call(cleanUser);
     }
+  } catch (error: any) {
+    console.log(error.message);
+  } finally {
+    NavigationService.navigate(routes.UPDATE_PROFILE);
   }
-  catch (error: any) {
+}
+//get profile user
+function* getProfileUserSaga(): Generator {
+  try {
+    const {data}: any = yield call(UserService.getUserProfile);
+    if (data.code === 200) {
+      yield put(
+        AuthActions.getUserInfoSuccess({
+          user: data.data,
+        }),
+      );
+    } else {
+      yield call(cleanUser);
+    }
+  } catch (error: any) {
     console.log(error.message);
   }
+}
 
-
+//update avatar user
+function* updateAvatarUser(action: PayloadAction<FormData>): Generator {
+  try {
+    const {data}: any = yield call(
+      UserService.updateUserAvatar,
+      action.payload,
+    );
+    
+    if (data.code === 200) {
+      yield put(
+        AuthActions.getUserInfoSuccess({
+          user: data.data,
+        }),
+      );
+      showToastSuccess(data.message);
+    } else if (data.code === 400) {
+      showToastError(data.message);
+    } else {
+      console.log(data);
+      showToastError('unstable connection');
+    }
+  } catch (error: any) {
+    console.log('Have error at get profile saga: ' + error.message);
+  }
 }
 
 //clean user
@@ -109,14 +159,15 @@ function* cleanUser(): Generator {
       enableSignIn: false,
       accessToken: '',
       refreshToken: '',
-      enableBiometric: false,
       user: {},
     }),
   );
 }
 
 export default function* watchAuthSaga() {
+  yield takeLatest(AuthActions.getUserInfo.type, getProfileUserSaga);
   yield takeLatest(AuthActions.handleLogin.type, loginSaga);
   yield takeLatest(AuthActions.handleLoginGoogle.type, loginGoogleSaga);
   yield takeLatest(AuthActions.handleCreateAccount.type, createAccountSaga);
+  yield takeLatest(AuthActions.handleUpdateAvatar.type, updateAvatarUser);
 }

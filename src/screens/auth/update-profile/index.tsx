@@ -6,7 +6,6 @@ import {CheckBox, Icon} from '@rneui/themed';
 import {
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   TouchableWithoutFeedback,
   View,
@@ -55,8 +54,8 @@ const UpdateProfile: FunctionComponent = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -150}>
+      //  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <ScrollView style={styles.container}>
         <TouchableWithoutFeedback
           style={styles.wrapper}
@@ -66,7 +65,11 @@ const UpdateProfile: FunctionComponent = () => {
               leftIcon={true}
               onPressLeftIcon={() => {
                 Keyboard.dismiss();
-                NavigationService.navigate(routes.LOBBY);
+                try {
+                  NavigationService.goBack();
+                } catch (error) {
+                  NavigationService.navigate(routes.LOBBY);
+                }
               }}
             />
 

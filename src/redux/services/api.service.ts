@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {BASE_URL, Endpoints} from '../../environment';
-import {store} from '../store';
-import {AuthActions} from '../reducer';
-import {ToastAndroid} from 'react-native';
+import { BASE_URL, Endpoints } from '../../environment';
+import { showToastError } from '../../utils';
+import { AuthActions } from '../reducer';
+import { store } from '../store';
 
 const apiService = axios.create({
   baseURL: BASE_URL,
@@ -28,12 +28,12 @@ apiService.interceptors.request.use(
 
 apiService.interceptors.response.use(
   response => {
-    console.log(`Call Api Successful  ${response.request.responseURL} `);
+
+    //showToastSuccess(`Call Api Successful  ${response.request.responseURL}`);
     return response;
   },
   async error => {
-    //console.log(`Call Api Failed  ${error.request.responseURL} `);
-    ToastAndroid.show('Call Api Failed', ToastAndroid.SHORT);
+    showToastError(`Please check your connection  ${error.request.responseURL}`);
     const originalRequest = error.config;
     const refreshToken = store.getState().auth.refreshToken;
 

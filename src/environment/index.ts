@@ -4,30 +4,24 @@
 // dotenv.config();
 
 // //URL
-export const BASE_URL = 'https://e69c-2402-800-63a8-b4b3-dd6-2d00-27a2-1424.ngrok-free.app';
+export const BASE_URL =
+  'https://e69c-2402-800-63a8-b4b3-dd6-2d00-27a2-1424.ngrok-free.app';
 
 export enum Endpoints {
   //AUTH
   LOGIN_ENDPOINT = '/auth/login',
+  REGISTER_ADMIN_ENDPOINT = '/auth/admin',
   CREATE_ACCOUNT_ENDPOINT = '/auth/register',
   REFRESH_TOKEN_ENDPOINT = '/auth/refresh-token',
   SIGN_IN_GOOGLE = '/auth/google-login',
   //USER
-  GET_USER_ENDPOINT = '/user',
-  UPLOAD_USER_AVATAR_ENDPOINT = '/user/upload-avatar',
+  GET_ALL_USER_ENDPOINT = '/user',
+  UPLOAD_USER_AVATAR_ENDPOINT = '/user/avatar', //put,remove: avatar
   UPDATE_USER_PROFILE_ENDPOINT = '/user/update-user',
-  //JOB
-  GET_JOB_ENDPOINT = '/job',
-  GET_CATEGORY_ENDPOINT = '/category',
-  GET_ALL_COMPANY_ENDPOINT = '/company',
-  GET_PROFILE_ENDPOINT = '/user/profile',
-  APPLY_JOB_ENDPOINT = '/user-job',
-  SEARCH_JOB_ENDPOINT = '/job/get-job-by-name',
-  GET_JOB_BY_CATEGORY_ENDPOINT = '/job/get-job-by-category',
-  GET_SAVE_JOB_ENDPOINT = '/save-job',
-  POST_JOB_USER_ENDPOINT = '/post',
+  GET_PROFILE_ENDPOINT = '/user/profile', //update profile and get info user
+  //TOPIC
+  GET_ALL_TOPIC_ENDPOINT = '/topic', //get all topic and create topic
+  UPDATE_TOPIC_ENDPOINT = '/topic/update', //update topic
+  DELETE_TOPIC_ENDPOINT = '/topic/delete', //delete topic
 
-  // CATEGORY
-  GET_ALL_CATEGORY_ENDPOINT = '/category/type',
-  HISTORY_APPLY_JOB_ENDPOINT = '/user-job/owner',
 }

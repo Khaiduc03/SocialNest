@@ -1,10 +1,9 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import { Icon } from '@rneui/themed';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Svg } from 'react-native-svg';
 import useStyles from './styles';
-import {Icon} from '@rneui/themed';
-import {smallButtonProps} from './types';
-import {GoogleIcon} from '../../../assets/icons';
-import {Svg} from 'react-native-svg';
+import { smallButtonProps } from './types';
 
 const SmallButton: React.FunctionComponent<smallButtonProps> = props => {
   const styles = useStyles();
