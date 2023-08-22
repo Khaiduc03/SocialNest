@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthState, LoginPayload, RefreshToken, User } from '../types';
-import { Redux } from '../types/redux.type';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {AuthState, LoginPayload, RefreshToken, User} from '../types';
+import {Redux} from '../types/redux.type';
 
 const initialState: AuthState = {
   enableSignIn: false,
@@ -33,7 +33,7 @@ const reducer = createSlice({
     //login google
     handleLoginGoogle: (
       state: AuthState,
-      _: PayloadAction<Pick<LoginPayload,  'device_token'>>,
+      _: PayloadAction<Pick<LoginPayload, 'device_token'>>,
     ) => {
       return {
         ...state,
@@ -116,20 +116,7 @@ const reducer = createSlice({
         ...state,
       };
     },
-    handleUpdateAvatarSuccess: (
-      state: AuthState,
-      action: PayloadAction<Partial<User>>,
-    ) => {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
-      };
-    },
-
-
+   
 
     updateUserProfile: (
       state: AuthState,

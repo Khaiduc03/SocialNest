@@ -39,7 +39,8 @@ const useStyles = makeStyles(({colors}) => ({
   contentStyle: {
     borderTopEndRadius: normalize(20),
     borderTopStartRadius: normalize(20),
-    paddingTop: normalize(16),
+    paddingVertical: normalize(16),
+    
   },
   modalItem: {
     flexDirection: 'row',

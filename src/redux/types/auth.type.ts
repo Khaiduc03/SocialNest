@@ -6,7 +6,6 @@ export type AppStatus = {
 
 export type AuthState = {
   enableSignIn: boolean;
- 
   accessToken: string;
   refreshToken: string;
   user: Partial<User>;

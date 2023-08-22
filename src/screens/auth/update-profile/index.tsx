@@ -52,10 +52,7 @@ const UpdateProfile: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      //  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={styles.container}>
       <ScrollView style={styles.container}>
         <TouchableWithoutFeedback
           style={styles.wrapper}

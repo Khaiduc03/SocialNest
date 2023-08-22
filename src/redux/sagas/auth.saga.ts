@@ -133,18 +133,13 @@ function* updateAvatarUser(action: PayloadAction<FormData>): Generator {
       UserService.updateUserAvatar,
       action.payload,
     );
-    
+
     if (data.code === 200) {
-      yield put(
-        AuthActions.getUserInfoSuccess({
-          user: data.data,
-        }),
-      );
+      yield call(getProfileUserSaga);
       showToastSuccess(data.message);
     } else if (data.code === 400) {
       showToastError(data.message);
     } else {
-      console.log(data);
       showToastError('unstable connection');
     }
   } catch (error: any) {
