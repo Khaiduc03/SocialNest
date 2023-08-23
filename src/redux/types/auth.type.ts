@@ -26,7 +26,7 @@ export type RefreshToken = {
 
 export type User = uuid &
   Timestamp & {
-    full_name: string;
+    fullname: string;
     phone_number: string;
     dob: string;
     email: string;

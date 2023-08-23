@@ -1,6 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {AuthState, LoginPayload, RefreshToken, User} from '../types';
 import {Redux} from '../types/redux.type';
+import {UpdateProfileDto} from '../dto';
 
 const initialState: AuthState = {
   enableSignIn: false,
@@ -39,6 +40,7 @@ const reducer = createSlice({
         ...state,
       };
     },
+
     //logout
     handleLogout: (state: AuthState) => {
       return {
@@ -112,25 +114,25 @@ const reducer = createSlice({
     },
     //update user
     handleUpdateAvatar: (state: AuthState, _: PayloadAction<FormData>) => {
+      return state;
+    },
+
+    handleDeleteAvatar: (state: AuthState) => {
+      return state;
+    },
+
+    handleUpdateUserProfile: (
+      state: AuthState,
+      _: PayloadAction<UpdateProfileDto>,
+    ) => {
       return {
         ...state,
       };
     },
-   
-
-    updateUserProfile: (
-      state: AuthState,
-      _: PayloadAction<
-        Partial<
-          Pick<
-            User,
-            'full_name' | 'summary' | 'address' | 'phone_number' | 'email'
-          >
-        >
-      >,
-    ) => {
+    handleUpdateUserProfileSuccess: (state: AuthState) => {
       return {
         ...state,
+        enableSignIn: true,
       };
     },
   },

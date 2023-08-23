@@ -111,10 +111,8 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
         } else if (result.errorMessage) {
           showToastError('Có lỗi xảy ra khi mở camera');
         } else if (result.assets) {
-          //setCaptureImage(result.assets);
-
           const formdata = new FormData();
-          formdata.append('file', {
+          formdata.append('image', {
             uri: result.assets[0].uri,
             name: result.assets[0].fileName,
             type: result.assets[0].type,
@@ -145,7 +143,7 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
           showToastError('Something wrong!!');
         } else if (result.assets) {
           const formdata = new FormData();
-          formdata.append('file', {
+          formdata.append('image', {
             uri: result.assets[0].uri,
             name: result.assets[0].fileName,
             type: result.assets[0].type,
@@ -159,6 +157,10 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
 
   const handleUploadImage = async (formdata: any) => {
     dispatch(AuthActions.handleUpdateAvatar(formdata));
+  };
+
+  const handleDeleteImage = async () => {
+    dispatch(AuthActions.handleDeleteAvatar());
   };
 
   if (!isZoomed) {
@@ -222,7 +224,9 @@ const AvatarComponets: React.FunctionComponent<AvatarProps> = props => {
                 />
                 <Text style={styles.textStyle}>Select a photo</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.modalItem}>
+              <TouchableOpacity
+                style={styles.modalItem}
+                onPress={handleDeleteImage}>
                 <Icon
                   type="ionicon"
                   name={'trash-outline'}
