@@ -24,8 +24,4 @@ export const authScreen: Screen[] = [
     name: routes.UPDATE_PROFILE,
     component: UpdateProfile,
   },
-  {
-    name: routes.ONBOARD,
-    component: Slider,
-  },
 ];

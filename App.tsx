@@ -8,6 +8,7 @@ import {toastConfig} from './src/utils/toastConfig';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import Alert from './src/components/customs/Alert';
 import Loading from './src/components/shared/Loading';
+import Slider from './src/screens/auth/onboard';
 
 const App: FunctionComponent = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App: FunctionComponent = () => {
           <Loading />
           {/* MAIN APP */}
           <RootNavigation />
+          <Slider />
           <Toast config={toastConfig} topOffset={20} visibilityTime={2500} />
 
           {/* Modal progressing when upgrade version of app */}

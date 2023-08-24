@@ -1,6 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {AppStatus} from '../types';
 import {Redux} from '../types/redux.type';
+import {useAppDispatch} from '../../hooks';
 
 const initialState: AppStatus = {
   isReady: false,
@@ -11,10 +12,16 @@ const reducer = createSlice({
   name: Redux.app,
   initialState,
   reducers: {
-    handleReady: (state: AppStatus, action: PayloadAction<boolean>) => {
+    handleReady: (state: AppStatus) => {
       return {
         ...state,
-        isReady: action.payload,
+        isReady: true,
+      };
+    },
+    handleNotReady: (state: AppStatus) => {
+      return {
+        ...state,
+        isReady: false,
       };
     },
     handleLoading: (state: AppStatus) => {
@@ -23,7 +30,7 @@ const reducer = createSlice({
         isLoading: true,
       };
     },
-    handleOffLoading: (state: AppStatus) => {
+    handleHideLoading: (state: AppStatus) => {
       return {
         ...state,
         isLoading: false,
@@ -31,6 +38,8 @@ const reducer = createSlice({
     },
   },
 });
+
+
 
 export const AppActions = reducer.actions;
 export const AppReducer = reducer.reducer;

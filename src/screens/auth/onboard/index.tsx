@@ -1,17 +1,16 @@
 import {Text} from '@rneui/themed';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Animated, FlatList, TouchableOpacity, View} from 'react-native';
 import {BigButton} from '../../../components';
-import {routes} from '../../../constants';
-import {useAppDispatch} from '../../../hooks';
-import {NavigationService} from '../../../navigation';
+import {useAppDispatch, useAppSelector} from '../../../hooks';
+import {getAppIsReady} from '../../../redux';
 import {AppActions} from '../../../redux/reducer';
 import Pagination from './Pagination';
 import SlideItem from './SlideItem';
 import Slides from './slides';
 import useStyles from './styles';
 
-const Slider = () => {
+const Slider: React.FunctionComponent = () => {
   const [index, setIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const totalSlides = Slides.length;
@@ -19,16 +18,18 @@ const Slider = () => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
 
+  const isReady: boolean = useAppSelector(getAppIsReady);
+
   const handleReady = () => {
-    dispatch(AppActions.handleReady(true));
-    NavigationService.navigate(routes.LOBBY);
+    dispatch(AppActions.handleReady());
   };
-  const handleNextButton = () => {
-    if (index === totalSlides - 1) {
-      return handleReady();
+  const handleNextButton = async () => {
+    if (!(index === totalSlides - 1)) {
+      flatListRef.current.scrollToIndex({animated: true, index: index + 1});
+      setIndex(index + 1);
+    } else {
+      handleReady();
     }
-    flatListRef.current.scrollToIndex({animated: true, index: index + 1});
-    setIndex(index + 1);
   };
 
   const handlebackButton = () => {
@@ -36,7 +37,7 @@ const Slider = () => {
       return;
     }
     flatListRef.current.scrollToIndex({animated: true, index: index - 1});
-    setIndex(index + 1);
+    setIndex(index - 1);
   };
 
   const handleOnScroll = (event: any) => {
@@ -64,6 +65,10 @@ const Slider = () => {
     itemVisiblePercentThreshold: 50,
   }).current;
 
+  if (isReady) {
+    return <View />;
+  }
+
   return (
     <View>
       <FlatList
@@ -84,8 +89,7 @@ const Slider = () => {
           <BigButton textButton="Next" onPressButton={handleNextButton} />
         </View>
         {index > 0 && (
-          <View
-            style={styles.backButton}>
+          <View style={styles.backButton}>
             <TouchableOpacity onPress={handlebackButton}>
               <Text>Back</Text>
             </TouchableOpacity>

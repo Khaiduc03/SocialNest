@@ -14,7 +14,7 @@ const usestyles = makeStyles(({colors}) => ({
     flex: 1,
     width: '100%',
     height: '40%',
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.background,
   },
   headerIMage: {
     width: '100%',

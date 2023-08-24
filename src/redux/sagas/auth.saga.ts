@@ -4,12 +4,14 @@ import {routes} from '../../constants';
 import {NavigationService} from '../../navigation';
 import {showToastError, showToastSuccess} from '../../utils';
 import {GoogleService} from '../../utils/google';
-import {AuthActions} from '../reducer';
+import {AppActions, AuthActions} from '../reducer';
 import {AuthService, UserService} from '../services';
 import {LoginPayload} from '../types';
+import {fi} from 'date-fns/locale';
 
 //login
 function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
+  yield put(AppActions.handleLoading());
   try {
     const {data}: any = yield call(AuthService.handleLogin, action.payload);
 
@@ -40,14 +42,14 @@ function* loginSaga(action: PayloadAction<LoginPayload>): Generator {
   } catch (error: any) {
     console.log(error.message);
   } finally {
-    // yield put(LoadingActions.hideLoading());
+    yield put(AppActions.handleHideLoading());
   }
 }
 
 function* loginGoogleSaga(
   action: PayloadAction<Omit<LoginPayload, 'password' | 'email'>>,
 ): Generator {
-  //  yield put(LoadingActions.showLoading());
+  yield put(AppActions.handleLoading());
   try {
     yield GoogleService.logout();
     const checkLogin = yield GoogleService.checkSignIn();
@@ -77,12 +79,15 @@ function* loginGoogleSaga(
     }
   } catch (error: any) {
     console.log(error.message);
+  } finally {
+    yield put(AppActions.handleHideLoading());
   }
 }
 
 function* createAccountSaga(
   action: PayloadAction<Omit<LoginPayload, 'idToken' | 'device_token'>>,
 ): Generator {
+  yield put(AppActions.handleLoading());
   try {
     const {data}: any = yield call(
       AuthService.handleCreateAccount,
@@ -105,6 +110,7 @@ function* createAccountSaga(
   } catch (error: any) {
     console.log(error.message);
   } finally {
+    yield put(AppActions.handleHideLoading());
   }
 }
 //get profile user
@@ -127,6 +133,7 @@ function* getProfileUserSaga(): Generator {
 
 //update avatar user
 function* updateAvatarUser(action: PayloadAction<FormData>): Generator {
+  yield put(AppActions.handleLoading());
   try {
     const {data}: any = yield call(
       UserService.updateUserAvatar,
@@ -143,10 +150,13 @@ function* updateAvatarUser(action: PayloadAction<FormData>): Generator {
     }
   } catch (error: any) {
     console.log('Have error at get profile saga: ' + error.message);
+  } finally {
+    yield put(AppActions.handleHideLoading());
   }
 }
 
 function* deleteAvatarUser(): Generator {
+  yield put(AppActions.handleLoading());
   try {
     const {data}: any = yield call(UserService.deleteUserAvatar);
     if (data.code === 200) {
@@ -159,10 +169,13 @@ function* deleteAvatarUser(): Generator {
     }
   } catch (error: any) {
     console.log('Have error at get profile saga: ' + error.message);
+  } finally {
+    yield put(AppActions.handleHideLoading());
   }
 }
 
 function* updateUserProfile(action: PayloadAction<any>): Generator {
+  yield put(AppActions.handleLoading());
   try {
     const {data}: any = yield call(
       UserService.updateUserProfile,
@@ -178,7 +191,9 @@ function* updateUserProfile(action: PayloadAction<any>): Generator {
       showToastError('Pless check your connection');
     }
   } catch (error: any) {
-    console.log('Pless check your connection'+error);
+    console.log('Pless check your connection' + error);
+  } finally {
+    yield put(AppActions.handleHideLoading());
   }
 }
 
