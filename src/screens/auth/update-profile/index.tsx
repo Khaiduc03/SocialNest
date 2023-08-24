@@ -113,7 +113,7 @@ const UpdateProfile: FunctionComponent = () => {
 
               <Text style={styles.titleInput}>Date of Birth</Text>
               <InputCustom
-                placeholder="dd/MM/yy"
+                placeholder="yy-MM-dd"
                 rightIcon={
                   <Icon
                     type="ionicon"
