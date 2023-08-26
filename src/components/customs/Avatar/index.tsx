@@ -1,8 +1,8 @@
-import {Avatar, Icon, Text} from '@rneui/themed';
-import React, {useEffect, useState} from 'react';
-import {Platform, TouchableOpacity, View} from 'react-native';
+import { Avatar, Icon, Text } from '@rneui/themed';
+import React, { useEffect, useState } from 'react';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -17,11 +17,11 @@ import {
   useAppSelector,
   usePermission,
 } from '../../../hooks';
-import {AuthActions, getAuthUserProfile} from '../../../redux';
-import {showToastError} from '../../../utils';
+import { AuthActions, getAuthUserProfile } from '../../../redux';
+import { showToastError } from '../../../utils';
 import ModalWrapContent from '../ModalWrapContent';
 import useStyles from './styles';
-import {AvatarProps} from './type';
+import { AvatarProps } from './type';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 

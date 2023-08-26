@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import {makeStyles} from '@rneui/themed';
+import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+const useStyles = makeStyles(({colors}) => ({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+}));
 
-export default styles;
+export default useStyles;

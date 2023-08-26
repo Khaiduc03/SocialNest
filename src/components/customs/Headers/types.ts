@@ -11,5 +11,8 @@ export type HeaderProps = {
   style?: ViewProps['style'];
   titleStyle?: TextStyle;
   logo?: boolean;
-  iconColor?: string[]
+  iconColor?: string[];
+  rightElementIcon?: ReactElement;
+  leftElementIcon?: ReactElement;
+  leftLogo?: string;
 };

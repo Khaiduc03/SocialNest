@@ -6,9 +6,9 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
     marginVertical: normalize(12),
-    height: Device.getDeviceWithScreen()*0.04
+    height: Device.getDeviceWithScreen() * 0.04,
   },
   icon: {
     justifyContent: 'center',
@@ -25,6 +25,11 @@ const useStyles = makeStyles(({colors}) => ({
     left: 0,
     position: 'absolute',
   },
+  logoIcon: {
+    width: normalize(80),
+    height: normalize(80),
+  },
+
   colorPrimary: {
     color: colors.primary,
   },

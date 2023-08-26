@@ -2,11 +2,12 @@ import React from 'react';
 
 import {TouchableOpacity, View} from 'react-native';
 
-import {Icon} from '@rneui/themed';
+import {Icon, Image} from '@rneui/themed';
 import useStyles from './styles';
 import {HeaderProps} from './types';
 
 import {CaseIcon} from '../../../assets/icons';
+import LottieView from 'lottie-react-native';
 // import StyledText from '../StyledText';
 
 const Header: React.FunctionComponent<HeaderProps> = props => {
@@ -18,6 +19,9 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
     style,
     logo,
     iconColor,
+    leftElementIcon,
+    rightElementIcon,
+    leftLogo,
   } = props;
   const styles = useStyles();
   const leftPress = () => {
@@ -44,9 +48,21 @@ const Header: React.FunctionComponent<HeaderProps> = props => {
           />
         </TouchableOpacity>
       )}
+      {/* 
+      {leftLogo && (
+        // <LottieView
+        //   style={[styles.iconleft, styles.logoIcon]}
+        //   source={leftLogo}
+        //   autoPlay={true}
+         
+
+        //   loop={false}
+        // />
+       
+      )} */}
 
       <View style={styles.caseIcon}>
-        {logo && <CaseIcon colors={props.iconColor}  />}
+        {logo && <CaseIcon colors={props.iconColor} />}
       </View>
 
       {rightIcon && (
